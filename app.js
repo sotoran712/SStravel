@@ -236,7 +236,6 @@ function bindElements() {
     "startDateInput",
     "endDateInput",
     "budgetInput",
-    "resetButton",
     "budgetHealth",
     "budgetBar",
     "spentAmount",
@@ -340,7 +339,6 @@ function bindEvents() {
   els.cancelEditButton.addEventListener("click", clearItineraryForm);
   els.cancelStayEditButton.addEventListener("click", clearStayForm);
   els.cancelFlightEditButton.addEventListener("click", clearFlightForm);
-  els.resetButton.addEventListener("click", resetToSample);
   els.downloadJsonButton.addEventListener("click", downloadJson);
   els.downloadMarkdownButton.addEventListener("click", downloadMarkdown);
   els.copyMarkdownButton.addEventListener("click", copyMarkdown);
@@ -1090,17 +1088,6 @@ function clearFlightForm() {
   els.flightDateInput.value = state.data.trip.startDate;
   closeCollapsiblePanel("flightForm");
   refreshIcons();
-}
-
-function resetToSample() {
-  state.data = structuredClone(defaultData);
-  state.activeDate = "all";
-  state.search = "";
-  els.searchInput.value = "";
-  saveData("초기화됨");
-  populateForms();
-  render();
-  showToast("샘플 계획으로 초기화했습니다.");
 }
 
 function calculateTotals() {
