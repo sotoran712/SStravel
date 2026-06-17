@@ -579,6 +579,7 @@
 
   <script>
     const STORAGE_KEY = "honeymoon-atlas-2026";
+    const DIRTY_KEY = `${STORAGE_KEY}:dirty`;
     const typeLabels = {
       flight: "항공권",
       stay: "숙소",
@@ -622,6 +623,7 @@
 
     function readLocalData() {
       try {
+        if (localStorage.getItem(DIRTY_KEY) !== "1") return null;
         const raw = localStorage.getItem(STORAGE_KEY);
         return raw ? JSON.parse(raw) : null;
       } catch {
@@ -769,7 +771,7 @@
           key,
           item.date,
           dayTitle(item, key),
-          `${cityLabel(key)} 일정`
+          dayDescription(item, key)
         );
         group.entries.push(item);
       });
@@ -804,7 +806,11 @@
       }
 
       Object.keys(grouped).forEach((key) => {
-        grouped[key].sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+        grouped[key].sort((a, b) => {
+          const dateCompare = (a.date || "").localeCompare(b.date || "");
+          if (dateCompare) return dateCompare;
+          return Number(Boolean(b.entries)) - Number(Boolean(a.entries));
+        });
       });
 
       return grouped;
@@ -906,6 +912,7 @@
 
     function getSectionKey(item) {
       const text = `${item.date || ""} ${item.title || ""} ${item.destination || ""} ${item.address || ""} ${item.route || ""}`.toLowerCase();
+      if (item.date === "2027-04-25") return "flight";
       if (text.includes("barcelona") || text.includes("바르셀로나") || between(item.date, "2027-04-28", "2027-05-01")) return "barcelona";
       if (text.includes("istanbul") || text.includes("이스탄불") || text.includes("taksim") || text.includes("galata") || between(item.date, "2027-05-02", "2027-05-05")) return "istanbul";
       if (text.includes("madrid") || text.includes("마드리드") || between(item.date, "2027-04-26", "2027-04-27")) return "madrid";
@@ -913,10 +920,18 @@
     }
 
     function dayTitle(item, key) {
+      if (key === "flight" && item.date === "2027-04-25") return "병현윤경 결혼식";
       if (key === "madrid") return "마드리드";
       if (key === "barcelona") return "바르셀로나";
       if (key === "istanbul") return "이스탄불";
       return item.title || "일정";
+    }
+
+    function dayDescription(item, key) {
+      if (key === "flight" && item.date === "2027-04-25") {
+        return "결혼식 후 집에서 짐 챙겨 인천공항으로 이동";
+      }
+      return `${cityLabel(key)} 일정`;
     }
 
     function cityLabel(key) {
