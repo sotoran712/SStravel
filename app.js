@@ -187,6 +187,14 @@ const state = {
   toastTimer: null,
 };
 
+const formToggleConfigs = [
+  { buttonId: "toggleTripForm", contentId: "tripForm", closedText: "정보 수정", closedIcon: "settings-2" },
+  { buttonId: "toggleItineraryForm", contentId: "itineraryForm", closedText: "일정 입력", closedIcon: "plus" },
+  { buttonId: "toggleStayForm", contentId: "stayForm", closedText: "숙소 입력", closedIcon: "plus" },
+  { buttonId: "toggleFlightForm", contentId: "flightForm", closedText: "항공권 입력", closedIcon: "plus" },
+  { buttonId: "toggleGithubFields", contentId: "githubConnectionFields", closedText: "연결 정보", closedIcon: "key-round" },
+];
+
 const els = {};
 
 document.addEventListener("DOMContentLoaded", init);
@@ -220,6 +228,7 @@ function bindElements() {
     "summaryBudget",
     "summaryRemaining",
     "tripForm",
+    "toggleTripForm",
     "tripTitleInput",
     "coupleInput",
     "routeInput",
@@ -237,6 +246,7 @@ function bindElements() {
     "dayTabs",
     "itineraryList",
     "itineraryForm",
+    "toggleItineraryForm",
     "itineraryFormTitle",
     "cancelEditButton",
     "entryDateInput",
@@ -252,6 +262,7 @@ function bindElements() {
     "itinerarySubmitLabel",
     "stayList",
     "stayForm",
+    "toggleStayForm",
     "cancelStayEditButton",
     "stayNameInput",
     "stayAddressInput",
@@ -262,6 +273,7 @@ function bindElements() {
     "staySubmitLabel",
     "flightList",
     "flightForm",
+    "toggleFlightForm",
     "cancelFlightEditButton",
     "flightAirlineInput",
     "flightNumberInput",
@@ -277,6 +289,8 @@ function bindElements() {
     "checklistInput",
     "githubForm",
     "githubTokenForm",
+    "toggleGithubFields",
+    "githubConnectionFields",
     "repoUrlInput",
     "branchInput",
     "dataPathInput",
@@ -299,6 +313,12 @@ function bindElements() {
 }
 
 function bindEvents() {
+  formToggleConfigs.forEach((config) => {
+    const button = els[config.buttonId];
+    if (!button) return;
+    button.addEventListener("click", () => handleFormToggle(config.contentId));
+  });
+
   els.tripForm.addEventListener("submit", handleTripSubmit);
   els.itineraryForm.addEventListener("submit", handleItinerarySubmit);
   els.stayForm.addEventListener("submit", handleStaySubmit);
@@ -328,6 +348,65 @@ function bindEvents() {
   els.loadRemoteButton.addEventListener("click", loadRemoteJson);
   els.openPagesButton.addEventListener("click", openGitHubPages);
   els.importJsonInput.addEventListener("change", importJsonFile);
+}
+
+function toggleCollapsiblePanel(contentId, options = {}) {
+  const content = els[contentId];
+  setCollapsiblePanel(contentId, content?.classList.contains("is-collapsed"), options);
+}
+
+function handleFormToggle(contentId) {
+  const content = els[contentId];
+  const willOpen = content?.classList.contains("is-collapsed");
+
+  if (!willOpen) {
+    if (contentId === "itineraryForm" && state.editingItineraryId) {
+      clearItineraryForm();
+      return;
+    }
+    if (contentId === "stayForm" && state.editingStayId) {
+      clearStayForm();
+      return;
+    }
+    if (contentId === "flightForm" && state.editingFlightId) {
+      clearFlightForm();
+      return;
+    }
+  }
+
+  toggleCollapsiblePanel(contentId, { focus: willOpen });
+}
+
+function openCollapsiblePanel(contentId, options = {}) {
+  setCollapsiblePanel(contentId, true, options);
+}
+
+function closeCollapsiblePanel(contentId) {
+  setCollapsiblePanel(contentId, false);
+}
+
+function setCollapsiblePanel(contentId, isOpen, { focus = false } = {}) {
+  const config = formToggleConfigs.find((item) => item.contentId === contentId);
+  const content = els[contentId];
+  const button = config ? els[config.buttonId] : null;
+  if (!content || !button) return;
+
+  content.classList.toggle("is-collapsed", !isOpen);
+  button.classList.toggle("is-open", isOpen);
+  button.setAttribute("aria-expanded", String(isOpen));
+
+  const label = button.querySelector("span");
+  if (label) label.textContent = isOpen ? "닫기" : config.closedText;
+
+  const icon = button.querySelector("i");
+  if (icon) icon.setAttribute("data-lucide", isOpen ? "chevron-up" : config.closedIcon);
+
+  refreshIcons();
+
+  if (isOpen && focus) {
+    const firstField = content.querySelector("input:not([type='hidden']):not([readonly]), select, textarea");
+    firstField?.focus();
+  }
 }
 
 function loadLocalData() {
@@ -730,6 +809,7 @@ function handleTripSubmit(event) {
   };
   saveData("여행 저장");
   render();
+  closeCollapsiblePanel("tripForm");
   showToast("여행 정보가 저장되었습니다.");
 }
 
@@ -782,6 +862,7 @@ function handleItineraryAction(event) {
     els.entrySpentInput.value = item.spent;
     els.entryStatusInput.value = item.status;
     els.entryNoteInput.value = item.note || "";
+    openCollapsiblePanel("itineraryForm");
     els.entryTitleInput.focus();
     refreshIcons();
     return;
@@ -833,6 +914,7 @@ function handleStayAction(event) {
     els.stayCheckOutInput.value = stay.checkOut;
     els.stayBudgetInput.value = stay.budget;
     els.staySpentInput.value = stay.spent;
+    openCollapsiblePanel("stayForm");
     els.stayNameInput.focus();
     refreshIcons();
     return;
@@ -886,6 +968,7 @@ function handleFlightAction(event) {
     els.flightBookingInput.value = flight.bookingRef || "";
     els.flightBudgetInput.value = flight.budget;
     els.flightSpentInput.value = flight.spent;
+    openCollapsiblePanel("flightForm");
     els.flightAirlineInput.focus();
     refreshIcons();
     return;
@@ -913,6 +996,7 @@ function handleGithubSubmit(event) {
   applyRepositoryConfig();
   populateForms();
   persistData({ dirty: state.isDirty, message: state.isDirty ? "수정사항 있음" : "저장소 연결됨" });
+  closeCollapsiblePanel("githubConnectionFields");
   showToast("GitHub 저장소가 자동 연결되어 있습니다.");
 }
 
@@ -932,6 +1016,7 @@ async function handleTokenSubmit(event) {
     sessionStorage.setItem(TOKEN_SESSION_KEY, token);
     els.githubTokenInput.value = "";
     updateTokenStatus("토큰 확인됨. 저장하기를 누르면 GitHub에 커밋됩니다.", "ready");
+    closeCollapsiblePanel("githubConnectionFields");
     showToast("토큰이 이번 브라우저 탭에만 연결되었습니다.");
   } catch (error) {
     sessionStorage.removeItem(TOKEN_SESSION_KEY);
@@ -973,6 +1058,7 @@ function clearItineraryForm(resetDate = true) {
   els.entryTimeInput.value = "10:00";
   els.entryTypeInput.value = "tour";
   els.entryStatusInput.value = "planned";
+  closeCollapsiblePanel("itineraryForm");
   refreshIcons();
 }
 
@@ -983,6 +1069,7 @@ function clearStayForm() {
   els.cancelStayEditButton.classList.add("is-hidden");
   els.stayCheckInInput.value = state.data.trip.startDate;
   els.stayCheckOutInput.value = state.data.trip.endDate;
+  closeCollapsiblePanel("stayForm");
   refreshIcons();
 }
 
@@ -992,6 +1079,7 @@ function clearFlightForm() {
   els.flightSubmitLabel.textContent = "항공권 추가";
   els.cancelFlightEditButton.classList.add("is-hidden");
   els.flightDateInput.value = state.data.trip.startDate;
+  closeCollapsiblePanel("flightForm");
   refreshIcons();
 }
 

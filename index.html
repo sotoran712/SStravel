@@ -69,12 +69,24 @@
                 <p class="section-kicker">Trip</p>
                 <h2>여행 기본 정보</h2>
               </div>
-              <button class="icon-button" id="resetButton" type="button" aria-label="샘플로 초기화">
-                <i data-lucide="rotate-ccw"></i>
-              </button>
+              <div class="heading-actions">
+                <button
+                  class="form-toggle-button"
+                  id="toggleTripForm"
+                  type="button"
+                  aria-controls="tripForm"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="settings-2"></i>
+                  <span>정보 수정</span>
+                </button>
+                <button class="icon-button" id="resetButton" type="button" aria-label="샘플로 초기화">
+                  <i data-lucide="rotate-ccw"></i>
+                </button>
+              </div>
             </div>
 
-            <form id="tripForm" class="form-stack">
+            <form id="tripForm" class="form-stack collapsible-content is-collapsed">
               <label>
                 <span>여행 이름</span>
                 <input id="tripTitleInput" name="title" required />
@@ -156,20 +168,30 @@
 
           <div id="dayTabs" class="day-tabs" aria-label="날짜 필터"></div>
 
-          <div id="itineraryList" class="itinerary-list"></div>
-
           <section class="panel inline-editor">
             <div class="panel-heading">
               <div>
                 <p class="section-kicker">Entry</p>
                 <h2 id="itineraryFormTitle">일정 추가</h2>
               </div>
-              <button class="icon-button is-hidden" id="cancelEditButton" type="button" aria-label="일정 수정 취소">
-                <i data-lucide="x"></i>
-              </button>
+              <div class="heading-actions">
+                <button
+                  class="form-toggle-button"
+                  id="toggleItineraryForm"
+                  type="button"
+                  aria-controls="itineraryForm"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="plus"></i>
+                  <span>일정 입력</span>
+                </button>
+                <button class="icon-button is-hidden" id="cancelEditButton" type="button" aria-label="일정 수정 취소">
+                  <i data-lucide="x"></i>
+                </button>
+              </div>
             </div>
 
-            <form id="itineraryForm" class="form-stack">
+            <form id="itineraryForm" class="form-stack collapsible-content is-collapsed">
               <div class="field-grid three">
                 <label>
                   <span>날짜</span>
@@ -234,6 +256,8 @@
               </button>
             </form>
           </section>
+
+          <div id="itineraryList" class="itinerary-list"></div>
         </section>
 
         <aside class="column column-right">
@@ -243,14 +267,26 @@
                 <p class="section-kicker">Stay</p>
                 <h2>숙소</h2>
               </div>
-              <button class="icon-button is-hidden" id="cancelStayEditButton" type="button" aria-label="숙소 수정 취소">
-                <i data-lucide="x"></i>
-              </button>
+              <div class="heading-actions">
+                <button
+                  class="form-toggle-button"
+                  id="toggleStayForm"
+                  type="button"
+                  aria-controls="stayForm"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="plus"></i>
+                  <span>숙소 입력</span>
+                </button>
+                <button class="icon-button is-hidden" id="cancelStayEditButton" type="button" aria-label="숙소 수정 취소">
+                  <i data-lucide="x"></i>
+                </button>
+              </div>
             </div>
 
             <div id="stayList" class="stay-list"></div>
 
-            <form id="stayForm" class="form-stack compact-form">
+            <form id="stayForm" class="form-stack compact-form collapsible-content is-collapsed">
               <label>
                 <span>숙소 이름</span>
                 <input id="stayNameInput" required />
@@ -292,14 +328,26 @@
                 <p class="section-kicker">Flight</p>
                 <h2>항공권</h2>
               </div>
-              <button class="icon-button is-hidden" id="cancelFlightEditButton" type="button" aria-label="항공권 수정 취소">
-                <i data-lucide="x"></i>
-              </button>
+              <div class="heading-actions">
+                <button
+                  class="form-toggle-button"
+                  id="toggleFlightForm"
+                  type="button"
+                  aria-controls="flightForm"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="plus"></i>
+                  <span>항공권 입력</span>
+                </button>
+                <button class="icon-button is-hidden" id="cancelFlightEditButton" type="button" aria-label="항공권 수정 취소">
+                  <i data-lucide="x"></i>
+                </button>
+              </div>
             </div>
 
             <div id="flightList" class="flight-list"></div>
 
-            <form id="flightForm" class="form-stack compact-form">
+            <form id="flightForm" class="form-stack compact-form collapsible-content is-collapsed">
               <div class="field-grid">
                 <label>
                   <span>항공사</span>
@@ -364,55 +412,69 @@
                 <p class="section-kicker">GitHub</p>
                 <h2>저장소 연결</h2>
               </div>
-              <button class="icon-button" id="openPagesButton" type="button" aria-label="GitHub Pages 열기">
-                <i data-lucide="external-link"></i>
-              </button>
+              <div class="heading-actions">
+                <button
+                  class="form-toggle-button"
+                  id="toggleGithubFields"
+                  type="button"
+                  aria-controls="githubConnectionFields"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="key-round"></i>
+                  <span>연결 정보</span>
+                </button>
+                <button class="icon-button" id="openPagesButton" type="button" aria-label="GitHub Pages 열기">
+                  <i data-lucide="external-link"></i>
+                </button>
+              </div>
             </div>
 
-            <form id="githubForm" class="form-stack compact-form">
-              <label>
-                <span>저장소 URL</span>
-                <input id="repoUrlInput" placeholder="https://github.com/name/repo" readonly />
-              </label>
-              <div class="field-grid">
+            <div id="githubConnectionFields" class="collapsible-content is-collapsed">
+              <form id="githubForm" class="form-stack compact-form">
                 <label>
-                  <span>브랜치</span>
-                  <input id="branchInput" readonly />
+                  <span>저장소 URL</span>
+                  <input id="repoUrlInput" placeholder="https://github.com/name/repo" readonly />
                 </label>
-                <label>
-                  <span>데이터 파일</span>
-                  <input id="dataPathInput" readonly />
-                </label>
-              </div>
-              <button class="secondary-button fill" type="submit">
-                <i data-lucide="github"></i>
-                자동 연결됨
-              </button>
-            </form>
-
-            <form id="githubTokenForm" class="form-stack compact-form token-form">
-              <label>
-                <span>GitHub 토큰</span>
-                <input
-                  id="githubTokenInput"
-                  type="password"
-                  autocomplete="off"
-                  spellcheck="false"
-                  placeholder="Fine-grained token"
-                />
-              </label>
-              <div class="token-actions">
+                <div class="field-grid">
+                  <label>
+                    <span>브랜치</span>
+                    <input id="branchInput" readonly />
+                  </label>
+                  <label>
+                    <span>데이터 파일</span>
+                    <input id="dataPathInput" readonly />
+                  </label>
+                </div>
                 <button class="secondary-button fill" type="submit">
-                  <i data-lucide="key-round"></i>
-                  토큰 연결
+                  <i data-lucide="github"></i>
+                  자동 연결됨
                 </button>
-                <button class="ghost-button" id="clearTokenButton" type="button">
-                  <i data-lucide="shield-x"></i>
-                  지우기
-                </button>
-              </div>
-              <p class="token-status" id="tokenStatus">토큰은 이 브라우저 탭에서만 보관됩니다.</p>
-            </form>
+              </form>
+
+              <form id="githubTokenForm" class="form-stack compact-form token-form">
+                <label>
+                  <span>GitHub 토큰</span>
+                  <input
+                    id="githubTokenInput"
+                    type="password"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Fine-grained token"
+                  />
+                </label>
+                <div class="token-actions">
+                  <button class="secondary-button fill" type="submit">
+                    <i data-lucide="key-round"></i>
+                    토큰 연결
+                  </button>
+                  <button class="ghost-button" id="clearTokenButton" type="button">
+                    <i data-lucide="shield-x"></i>
+                    지우기
+                  </button>
+                </div>
+                <p class="token-status" id="tokenStatus">토큰은 이 브라우저 탭에서만 보관됩니다.</p>
+              </form>
+            </div>
 
             <div class="github-actions">
               <button class="ghost-button" id="downloadJsonButton" type="button">

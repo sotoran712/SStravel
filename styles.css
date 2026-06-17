@@ -315,6 +315,14 @@ label span {
   margin-bottom: 16px;
 }
 
+.heading-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .panel-heading h2,
 .board-toolbar h2 {
   margin: 4px 0 0;
@@ -382,6 +390,7 @@ select:focus {
 .primary-button,
 .secondary-button,
 .ghost-button,
+.form-toggle-button,
 .icon-button,
 .map-link,
 .import-control {
@@ -400,6 +409,7 @@ select:focus {
 .primary-button:hover,
 .secondary-button:hover,
 .ghost-button:hover,
+.form-toggle-button:hover,
 .icon-button:hover,
 .map-link:hover,
 .import-control:hover {
@@ -433,6 +443,21 @@ select:focus {
   border: 1px solid rgba(15, 118, 110, 0.12);
 }
 
+.form-toggle-button {
+  min-height: 38px;
+  padding: 0 11px;
+  color: var(--teal-deep);
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  font-size: 0.82rem;
+}
+
+.form-toggle-button.is-open {
+  color: #fff;
+  background: var(--teal-deep);
+  border-color: var(--teal-deep);
+}
+
 .icon-button {
   width: 40px;
   flex: 0 0 40px;
@@ -452,9 +477,14 @@ select:focus {
   display: none;
 }
 
+.collapsible-content.is-collapsed {
+  display: none;
+}
+
 .primary-button svg,
 .secondary-button svg,
 .ghost-button svg,
+.form-toggle-button svg,
 .icon-button svg,
 .map-link svg,
 .search-box svg,
