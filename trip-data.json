@@ -14,7 +14,18 @@
     "dataPath": "trip-data.json"
   },
   "itinerary": [],
-  "flights": [],
+  "flights": [
+    {
+      "id": "flt-1781710292960-b39e97a8e6464",
+      "airline": "터키항공",
+      "flightNumber": "TK091",
+      "route": "ICN>MAD",
+      "departureDate": "2027-04-25",
+      "bookingRef": "",
+      "budget": 2300000,
+      "spent": 2234800
+    }
+  ],
   "stays": [
     {
       "id": "stay-1781709944022-fd05a538b57a9",
