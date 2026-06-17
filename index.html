@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>병현윤경 결혼식 & 유럽 신혼여행 일정표</title>
+  <style>
+    :root {
+      --bg: #fff8f6;
+      --card: #ffffff;
+      --ink: #2b2b2b;
+      --muted: #6f6f6f;
+      --line: #eadbd6;
+      --rose: #e85d75;
+      --rose-soft: #ffe8ee;
+      --blue: #3169b1;
+      --blue-soft: #eaf2ff;
+      --green: #2f8f6f;
+      --green-soft: #e9f7f1;
+      --gold: #b7791f;
+      --gold-soft: #fff5d8;
+      --shadow: 0 10px 30px rgba(130, 70, 70, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at top left, #fff0f4 0, transparent 36%),
+        radial-gradient(circle at top right, #eaf2ff 0, transparent 32%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 18px 70px;
+    }
+
+    header.hero {
+      background: linear-gradient(135deg, #ffeff4, #ffffff 48%, #edf5ff);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 34px 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "💕";
+      position: absolute;
+      right: 24px;
+      top: 18px;
+      font-size: 72px;
+      opacity: 0.13;
+      transform: rotate(-10deg);
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      letter-spacing: .08em;
+      color: var(--rose);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 46px);
+      line-height: 1.18;
+      letter-spacing: -0.05em;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .summary-card {
+      background: rgba(255,255,255,.75);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 15px;
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+
+    .payment-overview {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .payment-total {
+      background: #fff;
+      border: 1px solid #f0d7dd;
+      border-radius: 20px;
+      padding: 20px 22px;
+      box-shadow: 0 8px 22px rgba(130, 70, 70, 0.09);
+    }
+
+    .payment-label {
+      color: var(--rose);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .payment-total strong {
+      display: block;
+      font-size: clamp(31px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+    }
+
+    .payment-total span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .payment-breakdown {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .payment-item {
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 13px 15px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .payment-item b {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -0.03em;
+    }
+
+    .payment-item small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+    }
+
+    .payment-item strong {
+      flex: 0 0 auto;
+      font-size: 18px;
+      letter-spacing: -0.04em;
+      text-align: right;
+    }
+
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 18px 0 24px;
+      background: rgba(255, 248, 246, .88);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      box-shadow: 0 8px 20px rgba(130,70,70,.08);
+    }
+
+    nav a {
+      white-space: nowrap;
+      padding: 10px 14px;
+      background: #fff;
+      border-radius: 999px;
+      border: 1px solid #f0e3df;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4a4a4a;
+    }
+
+    nav a:hover { background: var(--rose-soft); color: var(--rose); }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 18px 0 6px;
+    }
+
+    .tool-btn {
+      border: 1px solid #f0e3df;
+      background: #fff;
+      color: #4a4a4a;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(130,70,70,.06);
+    }
+
+    .tool-btn:hover {
+      background: var(--rose-soft);
+      color: var(--rose);
+    }
+
+    .section-title {
+      margin: 36px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      letter-spacing: -0.04em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: var(--rose-soft);
+      color: var(--rose);
+      font-weight: 900;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    details.day-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    details.day-card[open] {
+      border-color: #f0c8d0;
+    }
+
+    summary.day-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(135deg, #fff, #fff7f9);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      position: relative;
+    }
+
+    summary.day-head::-webkit-details-marker { display: none; }
+
+    details[open] summary.day-head {
+      border-bottom-color: var(--line);
+    }
+
+    .day-title {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .toggle-icon {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--rose-soft);
+      color: var(--rose);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      margin-top: 1px;
+      transition: transform .2s ease;
+    }
+
+    details[open] .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .day-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .day-head p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .city-pill {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .day-body {
+      padding: 20px 22px 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .box {
+      border: 1px solid #efe4e0;
+      border-radius: 16px;
+      padding: 16px;
+      background: #fffdfc;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .box ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .box li + li { margin-top: 7px; }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid #efe4e0;
+      background: #fff;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 12px 13px;
+      text-align: left;
+      border-bottom: 1px solid #f0e6e2;
+      vertical-align: top;
+    }
+
+    .schedule-table th {
+      width: 30%;
+      color: #4b4b4b;
+      background: #fff5f7;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .schedule-table tr:last-child th,
+    .schedule-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .place-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .place {
+      border: 1px solid #eee1dc;
+      border-radius: 14px;
+      padding: 12px 13px;
+      background: #fff;
+    }
+
+    .place strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .place span {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f4f7ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid #dbe7ff;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+
+    .map-btn:hover {
+      background: #eaf2ff;
+      border-color: #bfd4ff;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      margin-left: 5px;
+    }
+
+    .memo {
+      border-left: 4px solid var(--green);
+      background: var(--green-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #245b48;
+      font-size: 14px;
+    }
+
+    .warn {
+      border-left: 4px solid var(--gold);
+      background: var(--gold-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #67430c;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 18px 12px 40px; }
+      header.hero { padding: 26px 20px; border-radius: 22px; }
+      .summary { grid-template-columns: repeat(2, 1fr); }
+      .payment-overview { grid-template-columns: 1fr; }
+      .payment-item { align-items: flex-start; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .place-list { grid-template-columns: 1fr; }
+      summary.day-head { flex-direction: column; }
+      .schedule-table th { width: 38%; white-space: normal; }
+      nav { border-radius: 18px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      nav, .toolbar { display: none; }
+      details.day-card { box-shadow: none; break-inside: avoid; }
+      details.day-card:not([open]) .day-body { display: block; }
+      details.day-card:not([open]) { border-color: var(--line); }
+      .map-btn { border: 0; padding: 0; background: transparent; }
+    }
+  </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=11846"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">WEDDING & HONEYMOON PLAN</div>
+      <h1>병현윤경 결혼식 & 유럽 신혼여행 일정표</h1>
+      <div class="subtitle">2027년 4월 25일 일요일 ~ 2027년 5월 5일 수요일 · 스페인 마드리드/바르셀로나 + 터키 이스탄불</div>
+
+      <div class="payment-overview" aria-label="전체 사용금액 요약">
+        <div class="payment-total">
+          <div class="payment-label">현재 입력된 전체 사용금액</div>
+          <strong>3,816,838원</strong>
+          <span>항공권 2,234,800원 + 숙소 1,582,038원 · 숙소 총 6박 · 숙소 1박 평균 263,673원</span>
+        </div>
+        <div class="payment-breakdown">
+          <div class="payment-item">
+            <div>
+              <b>항공권</b>
+              <small>터키항공 · ICN → IST → MAD / 화면 기준 총 요금</small>
+            </div>
+            <strong>2,234,800원</strong>
+          </div>
+          <div class="payment-item">
+            <div>
+              <b>마드리드 숙소</b>
+              <small>4/26 체크인 · 4/28 체크아웃 · 2박</small>
+            </div>
+            <strong>544,054원</strong>
+          </div>
+          <div class="payment-item">
+            <div>
+              <b>바르셀로나 숙소</b>
+              <small>4/28 체크인 · 5/2 체크아웃 · 4박</small>
+            </div>
+            <strong>1,037,984원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="summary-card"><strong>4/25</strong><span>결혼식 · 출국</span></div>
+        <div class="summary-card"><strong>4/26~4/27</strong><span>마드리드</span></div>
+        <div class="summary-card"><strong>4/28~5/1</strong><span>바르셀로나</span></div>
+        <div class="summary-card"><strong>5/2~5/5</strong><span>이스탄불 · 귀국</span></div>
+      </div>
+    </header>
+
+    <nav>
+      <a href="#wedding">결혼식 & 항공</a>
+      <a href="#madrid">마드리드</a>
+      <a href="#barcelona">바르셀로나</a>
+      <a href="#istanbul">이스탄불</a>
+      <a href="#check">확인 필요</a>
+    </nav>
+
+    <div class="toolbar">
+      <button class="tool-btn" type="button" onclick="toggleAll(true)">전체 펼치기</button>
+      <button class="tool-btn" type="button" onclick="toggleAll(false)">전체 접기</button>
+    </div>
+
+    <h2 id="wedding" class="section-title"><span class="badge">01</span> 결혼식 & 출국 일정</h2>
+    <div class="timeline">
+      <details class="day-card" id="day-0425" open>
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 25일 일요일 · 병현윤경 결혼식</h2>
+              <p>결혼식 후 집에서 짐을 챙겨 인천공항으로 이동</p>
+            </div>
+          </div>
+          <span class="city-pill">Seoul · ICN</span>
+        </summary>
+        <div class="day-body">
+          <table class="schedule-table">
+            <tr><th>오전 7:00~7:30</th><td>고센뷰티 도착</td></tr>
+            <tr><th>오전 7:30~8:00</th><td>헤어·메이크업 시작</td></tr>
+            <tr><th>오전 9:30~10:30</th><td>웨딩홀 이동 및 사진 촬영</td></tr>
+            <tr><th>오전 11:10</th><td>예식 시작</td></tr>
+            <tr><th>오후 12:10 전후</th><td>예식 종료 · 양가 인사 · 단체사진 · 정산 · 하객 배웅</td></tr>
+            <tr><th>오후 3:00~4:00</th><td>집으로 이동 후 짐 챙기기 · 인천국제공항 이동</td></tr>
+            <tr><th>오후 7:00</th><td>ICN 서울인천국제공항 T1 도착 목표</td></tr>
+            <tr><th>저녁 11:20</th><td>터키항공 TK091 출발 · ICN 인천국제공항 T1 → IST 이스탄불 공항</td></tr>
+            <tr><th>항공권 결제액</th><td>총 요금 2,234,800원 <span class="tag">화면 기준</span></td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0426-flight">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 26일 월요일 · 이스탄불 경유 후 마드리드 도착</h2>
+              <p>이스탄불 공항 환승 시간이 짧지 않지만, 공항이 넓어 게이트 이동 시간 확보 필요</p>
+            </div>
+          </div>
+          <span class="city-pill">IST · MAD</span>
+        </summary>
+        <div class="day-body">
+          <table class="schedule-table">
+            <tr><th>오전 5:00</th><td>이스탄불 도착 · TK091 · 11시간 40분 비행 · Boeing 777-300ER</td></tr>
+            <tr><th>오전 5:00~7:05</th><td>이스탄불 환승 대기 약 2시간 5분 · 게이트 찾기 및 간단한 간식</td></tr>
+            <tr><th>오전 7:05~10:30</th><td>TK1857 · IST → MAD · 4시간 25분 비행 · Airbus A330-300 · MAD 마드리드 국제공항 T1 도착</td></tr>
+            <tr><th>오전 11:30~12:30</th><td>입국심사 예상</td></tr>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <h2 id="madrid" class="section-title"><span class="badge">02</span> 마드리드 일정</h2>
+    <div class="timeline">
+      <details class="day-card" id="day-0426-madrid">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 26일 월요일 · 마드리드 1일차</h2>
+              <p>호텔 체크인 후 중심지 산책과 식사 위주</p>
+            </div>
+          </div>
+          <span class="city-pill">Madrid</span>
+        </summary>
+        <div class="day-body">
+          <div class="grid-2">
+            <div class="box">
+              <h3>🏨 숙소</h3>
+              <ul>
+                <li>아스파시오스 소피아 아파트먼트</li>
+                <li>결제 금액: 544,054원</li>
+                <li>2박 · 1박 평균 272,027원</li>
+                <li>오후 2시 체크인 또는 짐 맡기기</li>
+              </ul>
+              <a class="map-btn" href="https://maps.app.goo.gl/w8hX9eBUmXQMKEkZ9?g_st=ic" target="_blank">숙소 지도 열기</a>
+            </div>
+            <div class="box">
+              <h3>🌟 관광 후보</h3>
+              <ul>
+                <li>마드리드 궁전</li>
+                <li>마요르 광장</li>
+                <li>산미구엘 시장</li>
+                <li>푸에르타 델 솔 광장</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🍲 식당·간식</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>산히네스 추로스</strong>
+                <span>마드리드 대표 추로스 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/jnEPekWRUUuLMwA4A" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>La Cabaña Argentina</strong>
+                <span>육식맨 추천 · 구글맵 예약 · 음료 먼저 주문 · 모제하 주문 메모</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/Ki4ZnrfPV4gsxbMcA" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>메손 델 참피뇬</strong>
+                <span>스테이크보다는 맥주와 버섯 메뉴 메모</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/ZFLFbm2qN8k1aW326" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0427">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 27일 화요일 · 마드리드 2일차</h2>
+              <p>미술관 중심 일정</p>
+            </div>
+          </div>
+          <span class="city-pill">Madrid</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🌟 주요 일정</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>프라도 미술관</strong>
+                <span>관람 일정</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/qwuKAu8Hf3BjYRJB9?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>국립 소피아 미술센터</strong>
+                <span>메모: 프라도 공식 홈페이지 15유로 / 현장 한국어 오디오 가이드 인당 5유로</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/K3mqwoCrPHAr93ww8?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🍲 식당·쇼핑 후보</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Museo del Jamon paseo del Prado</strong>
+                <span>하몽 전문점</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/urq5pttZDdbqCrcv8" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>Mas Al Sur</strong>
+                <span>버섯 크림 리조또</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/mr74SmMdQAQEfzz48?g_st=com.iwilab.KakaoTalk.Share" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>라 타베르나 데 페날베르</strong>
+                <span>식사 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/1uf1VXx8VF93pJT76" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>엘코르테 백화점</strong>
+                <span>9층 전망 · 지하 슈퍼에서 간식 구매</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/zMnDWCiyJgYKTvf16" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h2 id="barcelona" class="section-title"><span class="badge">03</span> 바르셀로나 일정</h2>
+    <div class="timeline">
+      <details class="day-card" id="day-0428">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 28일 수요일 · 마드리드 → 바르셀로나 이동</h2>
+              <p>아토차역에서 바르셀로나 이동 후 숙소 체크인 및 가벼운 일정</p>
+            </div>
+          </div>
+          <span class="city-pill">Madrid → Barcelona</span>
+        </summary>
+        <div class="day-body">
+          <table class="schedule-table">
+            <tr><th>기차</th><td>아토차 → 바르셀로나 · 약 2시간 30분</td></tr>
+            <tr><th>운행 참고</th><td>첫차 6:30 전후 ~ 막차 21:00 전후</td></tr>
+            <tr><th>예매 메모</th><td>트립닷컴 등 메이저 여행 플랫폼 구매 / 한국어 지원 공식 예매 사이트 SpainRail.com 메모 / 간단한 짐 검사</td></tr>
+            <tr><th>지도 메모</th><td><a class="map-btn" href="https://maps.app.goo.gl/Gkzu4xNBvAN1nuYG6?g_st=ic" target="_blank">관련 지도 열기</a></td></tr>
+          </table>
+
+          <div class="grid-2">
+            <div class="box">
+              <h3>🏨 숙소 후보</h3>
+              <ul>
+                <li>요즘사람들</li>
+                <li>결제 금액: 1,037,984원</li>
+                <li>4박 · 1박 평균 259,496원</li>
+                <li><a class="map-btn" href="https://accommodation.myrealtrip.com/union/products/5006051?checkIn=2027-04-28&checkOut=2027-05-02&adultCount=2&childCount=0" target="_blank">숙소 링크 열기</a></li>
+              </ul>
+            </div>
+            <div class="box">
+              <h3>📍 숙소 위치 메모</h3>
+              <ul>
+                <li>까딸루냐 광장</li>
+                <li>에스파냐 광장</li>
+                <li>호텔 레기나 후보</li>
+                <li>바르셀로나 도시세 별도 납부 필요 메모</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🌟 가벼운 일정</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>라 보케리아 시장</strong>
+                <span>가볍게 둘러보기</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/qE8Z31D862WzDH1RA?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+            <p class="memo">다음날 가우디 투어를 위해 이날은 많이 걷지 않고 충분히 쉬는 일정으로 배치.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0429">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 29일 목요일 · 가우디 투어 & 고딕지구</h2>
+              <p>고딕지구는 낮과 밤 분위기가 달라 시간대별 산책 가능</p>
+            </div>
+          </div>
+          <span class="city-pill">Barcelona</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🌟 주요 일정</h3>
+            <ul>
+              <li>가우디 투어: 마이리얼트립 · 한민철 가이드 메모</li>
+              <li>오전 가우디 / 구엘공원 동반 입장 / 야경투어 할인 메모</li>
+              <li>지하철: Zone 1, 카드 하나로 여러 명 사용 가능 메모</li>
+            </ul>
+            <div class="place-list">
+              <div class="place">
+                <strong>Basilica de la Sagrada Família</strong>
+                <span>사그라다 파밀리아</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/C4h9SUF3H52Dea8r6?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>엘그롬 El Glop</strong>
+                <span>식사 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/EHxTjgBqK9k3vr4m7?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0430">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 4월 30일 금요일 · 보른지구 쇼핑 & 선물</h2>
+              <p>빵·카페·디자인샵·선물 구매 중심의 여유 일정</p>
+            </div>
+          </div>
+          <span class="city-pill">Barcelona</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🥯 Bread</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Hofmann</strong>
+                <span>베이커리 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/5whbgnMjWdeKKS9j9?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>Joncake</strong>
+                <span>베이커리 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/zbVzybQjjydSHsJo7?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>☕️ Cafe & 휴식</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Nomad Coffee</strong>
+                <span>테이크아웃 후 공원에서 먹기 · 잘 쉬기</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/kDfgpGBAR9auW7Ky8?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>구엘공원</strong>
+                <span>산책 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/B3HZrsP6iGuiRqLRA?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>사그랏 코르 성당</strong>
+                <span>일몰 포인트</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/eV6Evz8vtYNhm1pn8?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🛍️ 디자인샵·소품샵·간식</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Metro Cuadrado</strong>
+                <span>디자인샵·소품샵</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/n5iK1UaJmAw5MEi36?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>Petritxol xocoa</strong>
+                <span>추러스 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/on3VvkT2MAKSKU7T9?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🎁 선물용</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Bubo</strong>
+                <span>선물용 초콜릿 카페</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/Gp9Hqt3T1T9ynr4z6?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>La Chinata</strong>
+                <span>무화과 발사믹 · 올리브오일 · 핸드크림</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/cZdKLJfMbjrvFXCu9?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>🍲 저녁 후보</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>Casa Lolea Barcelona</strong>
+                <span>화이트 트러플 파스타 · 예약 메모</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/HGevZH3REcVEBzoX7?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0501">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 5월 1일 토요일 · 바르셀로나 자유 일정</h2>
+              <p>현대미술관 앞길에서 라발지구 방향 산책</p>
+            </div>
+          </div>
+          <span class="city-pill">Barcelona</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🌟 메모</h3>
+            <ul>
+              <li>바르셀로나 현대미술관 앞길로 라발지구까지 내려오는 동선</li>
+              <li>전날 쇼핑·관광 강도에 따라 자유롭게 조정</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h2 id="istanbul" class="section-title"><span class="badge">04</span> 터키 이스탄불 스탑오버</h2>
+    <div class="timeline">
+      <details class="day-card" id="day-0502">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 5월 2일 일요일 · 이스탄불 스탑오버 서비스</h2>
+              <p>터키항공 스탑오버 일정</p>
+            </div>
+          </div>
+          <span class="city-pill">Istanbul</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🇹🇷 메모</h3>
+            <ul>
+              <li>터키 이스탄불 스탑오버 서비스 이용</li>
+              <li>세부 항공편·숙소·이동 시간은 추후 확정 필요</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0503">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 5월 3일 월요일 · 탁심광장 중심 숙소</h2>
+              <p>공항버스와 가까운 중심지 기준</p>
+            </div>
+          </div>
+          <span class="city-pill">Taksim</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>📍 위치 메모</h3>
+            <ul>
+              <li>탁심광장</li>
+              <li>공항버스 접근성이 좋은 중심지 후보</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0504">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 5월 4일 화요일 · 갈라타·이스티클랄 일대</h2>
+              <p>카몬도계단, 이스티클랄 거리, 탁심·갈라타 일대 산책</p>
+            </div>
+          </div>
+          <span class="city-pill">Galata · Taksim</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>🌟 관광·거리</h3>
+            <ul>
+              <li>카몬도계단</li>
+              <li>이스티클랄 거리 Istiklal Caddesi</li>
+              <li>대부분 탁심·갈라타 일대와 가까워 도보 이동 가능한 경우가 많음</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>🥯🥙 음식 후보</h3>
+            <div class="place-list">
+              <div class="place">
+                <strong>HASAN FEHMİ ÖZSÜT 1915</strong>
+                <span>Menemen 메네멘 추천</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/eJnBFMjz8i2krSvF9?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+              <div class="place">
+                <strong>Kokoreççiler Kralı Zülfü Usta</strong>
+                <span>코코레치 후보</span>
+                <a class="map-btn" href="https://maps.app.goo.gl/eZRResAsZZMfZuB2A?g_st=ic" target="_blank">지도 열기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="day-card" id="day-0505">
+        <summary class="day-head">
+          <div class="day-title">
+            <span class="toggle-icon">›</span>
+            <div>
+              <h2>2027년 5월 5일 수요일 · 인천공항 도착</h2>
+              <p>신혼여행 종료</p>
+            </div>
+          </div>
+          <span class="city-pill">ICN</span>
+        </summary>
+        <div class="day-body">
+          <div class="box">
+            <h3>✈️ 귀국</h3>
+            <ul>
+              <li>인천공항 도착</li>
+              <li>상세 항공편 시간은 추후 입력</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h2 id="check" class="section-title"><span class="badge">!</span> 확인 필요 메모</h2>
+    <details class="day-card" id="checklist">
+      <summary class="day-head">
+        <div class="day-title">
+          <span class="toggle-icon">›</span>
+          <div>
+            <h2>예약 전 체크리스트</h2>
+            <p>날짜, 항공편, 숙소 링크, 도시세, 입장권 확인</p>
+          </div>
+        </div>
+        <span class="city-pill">Check</span>
+      </summary>
+      <div class="day-body">
+        <div class="warn">
+          <strong>날짜·예약 확인</strong><br>
+          첨부 예약 내역 기준으로 숙소 결제액을 반영했습니다. 마드리드는 2027년 4월 26일~4월 28일 2박 544,054원, 바르셀로나는 2027년 4월 28일~5월 2일 4박 1,037,984원입니다.
+        </div>
+        <div class="warn">
+          <strong>항공·스탑오버 세부 시간</strong><br>
+          이스탄불 스탑오버 구간과 5월 5일 인천공항 도착 항공편의 정확한 출발·도착 시간은 추후 확정 후 입력하면 좋습니다.
+        </div>
+        <div class="warn">
+          <strong>도시세·입장권·예약</strong><br>
+          바르셀로나 도시세, 사그라다 파밀리아/구엘공원/미술관 입장권, Casa Lolea 등 예약 필요 장소는 별도 체크리스트로 관리하는 것을 추천합니다.
+        </div>
+      </div>
+    </details>
+
+    <footer>
+      병현윤경 결혼식 & 신혼여행 일정표 · 클릭 확장형 HTML 정리본
+    </footer>
+  </div>
+
+  <script>
+    function toggleAll(open) {
+      document.querySelectorAll('details.day-card').forEach(function(card) {
+        card.open = open;
+      });
+    }
+
+    // 네비게이션으로 이동 시 해당 섹션의 첫 카드를 자동으로 펼침
+    document.querySelectorAll('nav a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        var id = this.getAttribute('href');
+        setTimeout(function() {
+          var section = document.querySelector(id);
+          if (!section) return;
+          var next = section.nextElementSibling;
+          if (next && next.classList.contains('timeline')) {
+            var firstCard = next.querySelector('details.day-card');
+            if (firstCard) firstCard.open = true;
+          } else if (id === '#check') {
+            var checklist = document.querySelector('#checklist');
+            if (checklist) checklist.open = true;
+          }
+        }, 50);
+      });
+    });
+  </script>
+</body>
+</html>
