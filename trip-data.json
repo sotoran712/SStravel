@@ -508,6 +508,11 @@
       "id": "chk-4",
       "label": "여행자 보험 증권",
       "done": false
+    },
+    {
+      "id": "chk-1781716227662-9b404d031d4dc",
+      "label": "보조배터리",
+      "done": false
     }
   ]
 }
