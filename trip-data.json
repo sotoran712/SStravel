@@ -15,35 +15,7 @@
   },
   "itinerary": [],
   "flights": [],
-  "stays": [
-    {
-      "id": "stay-1",
-      "name": "Astra Suites Santorini",
-      "address": "Imerovigli, Santorini 847 00, Greece",
-      "checkIn": "2026-09-15",
-      "checkOut": "2026-09-18",
-      "budget": 4200000,
-      "spent": 3800000
-    },
-    {
-      "id": "stay-2",
-      "name": "Electra Metropolis Athens",
-      "address": "Mitropoleos 15, Athens 105 57, Greece",
-      "checkIn": "2026-09-18",
-      "checkOut": "2026-09-20",
-      "budget": 1400000,
-      "spent": 1320000
-    },
-    {
-      "id": "stay-3",
-      "name": "Milos Breeze Boutique Hotel",
-      "address": "Pollonia 848 00, Milos, Greece",
-      "checkIn": "2026-09-20",
-      "checkOut": "2026-09-22",
-      "budget": 1600000,
-      "spent": 0
-    }
-  ],
+  "stays": [],
   "checklist": [
     {
       "id": "chk-1",
