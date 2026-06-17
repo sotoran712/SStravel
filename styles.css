@@ -914,22 +914,65 @@ select:focus {
 }
 
 @media (max-width: 760px) {
+  body {
+    background: #f7f6f2;
+  }
+
   .top-visual {
-    min-height: 560px;
+    min-height: 330px;
   }
 
   .top-visual__content,
   .workspace {
-    width: min(100% - 24px, 680px);
+    width: min(100% - 20px, 680px);
   }
 
   .top-visual__content {
-    min-height: 560px;
-    padding: 18px 0 58px;
+    min-height: 330px;
+    padding: 14px 0 34px;
+    justify-content: flex-start;
+    gap: 46px;
+  }
+
+  .top-visual__shade {
+    background:
+      linear-gradient(180deg, rgba(19, 28, 31, 0.42), rgba(19, 28, 31, 0.72)),
+      linear-gradient(90deg, rgba(19, 28, 31, 0.42), rgba(19, 28, 31, 0.1));
+  }
+
+  .top-bar {
+    align-items: flex-start;
+  }
+
+  .top-actions {
+    top: 12px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .top-actions .status-pill {
+    display: none;
+  }
+
+  .brand-mark {
+    min-height: 30px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .brand-dot {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 4px rgba(243, 180, 78, 0.2);
+  }
+
+  .repo-save-button {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.82rem;
   }
 
   .hero-grid,
-  .hero-stats,
   .column,
   .field-grid,
   .field-grid.three,
@@ -938,12 +981,89 @@ select:focus {
     grid-template-columns: 1fr;
   }
 
+  .hero-grid {
+    gap: 16px;
+    align-items: start;
+  }
+
   .hero-copy h1 {
-    font-size: clamp(2.2rem, 14vw, 4.2rem);
+    margin: 6px 0;
+    font-size: 2.2rem;
+    line-height: 1.06;
+  }
+
+  .route-line {
+    font-size: 0.96rem;
+    line-height: 1.38;
   }
 
   .hero-stats {
-    display: grid;
+    display: flex;
+    gap: 8px;
+    max-width: none;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .hero-stats article {
+    min-width: 138px;
+    padding: 11px 12px;
+    scroll-snap-align: start;
+  }
+
+  .hero-stats strong {
+    margin-top: 4px;
+    font-size: 0.9rem;
+  }
+
+  .hero-stats,
+  .day-tabs {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hero-stats::-webkit-scrollbar,
+  .day-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workspace {
+    margin: -18px auto 34px;
+    gap: 12px;
+  }
+
+  .planner-board {
+    order: 1;
+  }
+
+  .column-left {
+    order: 2;
+  }
+
+  .column-right {
+    order: 3;
+  }
+
+  .column,
+  .planner-board {
+    gap: 12px;
+  }
+
+  .panel,
+  .planner-board {
+    padding: 12px;
+    box-shadow: 0 8px 24px rgba(30, 48, 55, 0.08);
+  }
+
+  .panel-heading,
+  .board-toolbar {
+    margin-bottom: 12px;
+  }
+
+  .panel-heading h2,
+  .board-toolbar h2 {
+    font-size: 1rem;
   }
 
   .board-toolbar,
@@ -958,8 +1078,35 @@ select:focus {
     width: 100%;
   }
 
+  .search-box,
+  .secondary-button,
+  .primary-button,
+  input,
+  select {
+    min-height: 40px;
+  }
+
+  .day-tabs {
+    gap: 6px;
+    margin: 0 -2px;
+    padding-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .day-tab {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+
+  .itinerary-list {
+    gap: 8px;
+  }
+
   .itinerary-card {
     grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
   }
 
   .time-cell {
@@ -972,6 +1119,21 @@ select:focus {
   .card-footer {
     align-items: stretch;
     flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-title-row h3 {
+    font-size: 0.98rem;
+  }
+
+  .card-meta {
+    margin: 4px 0 8px;
+  }
+
+  .card-note {
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+    line-height: 1.5;
   }
 
   .card-actions,
@@ -982,34 +1144,43 @@ select:focus {
   .map-link,
   .small-action {
     flex: 1 1 120px;
+    min-height: 34px;
+  }
+
+  .budget-grid {
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .budget-grid article,
+  .flight-card,
+  .stay-card,
+  .check-item {
+    padding: 10px;
+  }
+
+  .inline-editor {
+    margin-top: 2px;
   }
 }
 
 @media (max-width: 420px) {
-  .top-bar {
-    align-items: flex-start;
-  }
-
   .top-actions {
-    top: 14px;
-    right: 12px;
-    left: 12px;
+    left: auto;
     justify-content: flex-end;
   }
 
-  .brand-mark,
-  .status-pill {
+  .brand-mark {
     width: fit-content;
   }
 
   .panel,
   .planner-board {
-    padding: 14px;
+    padding: 12px;
   }
 
   .github-actions,
-  .token-actions,
-  .budget-grid {
+  .token-actions {
     grid-template-columns: 1fr;
   }
 }
