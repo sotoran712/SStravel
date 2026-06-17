@@ -155,7 +155,8 @@ button:disabled {
   backdrop-filter: blur(14px);
 }
 
-.repo-save-button {
+.repo-save-button,
+.top-link-button {
   border: 0;
   border-radius: 999px;
   min-height: 40px;
@@ -169,9 +170,18 @@ button:disabled {
   box-shadow: 0 14px 30px rgba(230, 95, 85, 0.28);
   font-size: 0.9rem;
   font-weight: 900;
+  text-decoration: none;
 }
 
-.repo-save-button svg {
+.top-link-button {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 30px rgba(23, 32, 38, 0.14);
+  backdrop-filter: blur(14px);
+}
+
+.repo-save-button svg,
+.top-link-button svg {
   width: 17px;
   height: 17px;
   stroke-width: 2.5;
@@ -996,7 +1006,8 @@ select:focus {
     box-shadow: 0 0 0 4px rgba(243, 180, 78, 0.2);
   }
 
-  .repo-save-button {
+  .repo-save-button,
+  .top-link-button {
     min-height: 36px;
     padding: 0 12px;
     font-size: 0.82rem;

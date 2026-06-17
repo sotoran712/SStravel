@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>신혼여행 일정표</title>
+  <style>
+    :root {
+      --bg: #fff8f6;
+      --card: #ffffff;
+      --ink: #2b2b2b;
+      --muted: #6f6f6f;
+      --line: #eadbd6;
+      --rose: #e85d75;
+      --rose-soft: #ffe8ee;
+      --blue: #3169b1;
+      --blue-soft: #eaf2ff;
+      --green: #2f8f6f;
+      --green-soft: #e9f7f1;
+      --gold: #b7791f;
+      --gold-soft: #fff5d8;
+      --shadow: 0 10px 30px rgba(130, 70, 70, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      color: var(--ink);
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at top left, #fff0f4 0, transparent 36%),
+        radial-gradient(circle at top right, #eaf2ff 0, transparent 32%),
+        var(--bg);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 18px 70px;
+    }
+
+    header.hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 28px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(135deg, #ffeff4, #ffffff 48%, #edf5ff);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "💕";
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      font-size: 72px;
+      opacity: 0.13;
+      transform: rotate(-10deg);
+    }
+
+    .eyebrow {
+      margin-bottom: 6px;
+      color: var(--rose);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 46px);
+      line-height: 1.18;
+      letter-spacing: -0.05em;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .payment-overview {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .payment-total {
+      padding: 20px 22px;
+      border: 1px solid #f0d7dd;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(130, 70, 70, 0.09);
+    }
+
+    .payment-label {
+      margin-bottom: 4px;
+      color: var(--rose);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-total strong {
+      display: block;
+      font-size: clamp(31px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+    }
+
+    .payment-total span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .payment-breakdown {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .payment-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .78);
+    }
+
+    .payment-item b {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -0.03em;
+    }
+
+    .payment-item small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .payment-item strong {
+      flex: 0 0 auto;
+      font-size: 18px;
+      text-align: right;
+      letter-spacing: -0.04em;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .summary-card {
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .75);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .summary-card span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 18px 0 24px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 248, 246, .88);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 20px rgba(130, 70, 70, .08);
+    }
+
+    nav a {
+      white-space: nowrap;
+      padding: 10px 14px;
+      border: 1px solid #f0e3df;
+      border-radius: 999px;
+      background: #fff;
+      color: #4a4a4a;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    nav a:hover { background: var(--rose-soft); color: var(--rose); }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 18px 0 6px;
+    }
+
+    .tool-btn {
+      padding: 10px 14px;
+      border: 1px solid #f0e3df;
+      border-radius: 999px;
+      background: #fff;
+      color: #4a4a4a;
+      box-shadow: 0 6px 14px rgba(130, 70, 70, .06);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .tool-btn:hover {
+      background: var(--rose-soft);
+      color: var(--rose);
+    }
+
+    .section-title {
+      margin: 36px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      letter-spacing: -0.04em;
+    }
+
+    .badge {
+      min-width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--rose-soft);
+      color: var(--rose);
+      font-weight: 900;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    details.day-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    details.day-card[open] { border-color: #f0c8d0; }
+
+    summary.day-head {
+      position: relative;
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid transparent;
+      background: linear-gradient(135deg, #fff, #fff7f9);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    summary.day-head::-webkit-details-marker { display: none; }
+    details[open] summary.day-head { border-bottom-color: var(--line); }
+
+    .day-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .toggle-icon {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      margin-top: 1px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--rose-soft);
+      color: var(--rose);
+      font-weight: 900;
+      transition: transform .2s ease;
+    }
+
+    details[open] .toggle-icon { transform: rotate(90deg); }
+
+    .day-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .day-head p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .city-pill {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .day-body {
+      padding: 20px 22px 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .box {
+      padding: 16px;
+      border: 1px solid #efe4e0;
+      border-radius: 16px;
+      background: #fffdfc;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .box ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .box li + li { margin-top: 7px; }
+
+    .schedule-table {
+      width: 100%;
+      overflow: hidden;
+      border-collapse: collapse;
+      border: 1px solid #efe4e0;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 12px 13px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #f0e6e2;
+    }
+
+    .schedule-table th {
+      width: 30%;
+      white-space: nowrap;
+      background: #fff5f7;
+      color: #4b4b4b;
+      font-size: 14px;
+    }
+
+    .schedule-table tr:last-child th,
+    .schedule-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .place-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .place {
+      padding: 12px 13px;
+      border: 1px solid #eee1dc;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .place strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+
+    .place span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+      margin-right: 4px;
+      padding: 7px 10px;
+      border: 1px solid #dbe7ff;
+      border-radius: 999px;
+      background: #f4f7ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .map-btn:hover {
+      background: #eaf2ff;
+      border-color: #bfd4ff;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-left: 5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .memo {
+      padding: 12px 14px;
+      border-left: 4px solid var(--green);
+      border-radius: 12px;
+      background: var(--green-soft);
+      color: #245b48;
+      font-size: 14px;
+    }
+
+    .warn {
+      padding: 12px 14px;
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      background: var(--gold-soft);
+      color: #67430c;
+      font-size: 14px;
+    }
+
+    .empty {
+      padding: 22px;
+      border: 1px dashed var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .6);
+      color: var(--muted);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    footer {
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 18px 12px 40px; }
+      header.hero { padding: 26px 20px; border-radius: 22px; }
+      .summary { display: flex; gap: 8px; overflow-x: auto; }
+      .summary-card { min-width: 138px; }
+      .payment-overview { grid-template-columns: 1fr; }
+      .payment-breakdown { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .place-list { grid-template-columns: 1fr; }
+      summary.day-head { flex-direction: column; }
+      .schedule-table,
+      .schedule-table tbody,
+      .schedule-table tr,
+      .schedule-table th,
+      .schedule-table td {
+        display: block;
+        width: 100%;
+      }
+      .schedule-table th {
+        width: 100%;
+        white-space: normal;
+      }
+      nav {
+        border-radius: 18px;
+        scrollbar-width: none;
+      }
+      nav::-webkit-scrollbar,
+      .summary::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    @media print {
+      body { background: #fff; }
+      nav, .toolbar { display: none; }
+      details.day-card { box-shadow: none; break-inside: avoid; }
+      details.day-card:not([open]) .day-body { display: block; }
+      details.day-card:not([open]) { border-color: var(--line); }
+      .map-btn { border: 0; padding: 0; background: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">WEDDING & HONEYMOON PLAN</div>
+      <h1 id="pageTitle">신혼여행 일정표</h1>
+      <div id="subtitle" class="subtitle">일정을 불러오는 중입니다.</div>
+
+      <div class="payment-overview" aria-label="전체 사용금액 요약">
+        <div class="payment-total">
+          <div class="payment-label">현재 입력된 전체 사용금액</div>
+          <strong id="totalSpent">-</strong>
+          <span id="totalCaption">trip-data.json 기준으로 자동 정리됩니다.</span>
+        </div>
+        <div id="paymentBreakdown" class="payment-breakdown"></div>
+      </div>
+
+      <div id="summaryCards" class="summary"></div>
+    </header>
+
+    <nav id="sectionNav">
+      <a href="./index.html">플래너로 돌아가기</a>
+    </nav>
+
+    <div class="toolbar">
+      <button class="tool-btn" type="button" onclick="toggleAll(true)">전체 펼치기</button>
+      <button class="tool-btn" type="button" onclick="toggleAll(false)">전체 접기</button>
+    </div>
+
+    <main id="scheduleRoot">
+      <div class="empty">일정 데이터를 불러오고 있습니다.</div>
+    </main>
+
+    <footer>
+      신혼여행 일정표 · trip-data.json 자동 정리본
+    </footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "honeymoon-atlas-2026";
+    const typeLabels = {
+      flight: "항공권",
+      stay: "숙소",
+      food: "식사",
+      tour: "투어",
+      transport: "이동",
+      shopping: "쇼핑",
+      etc: "기타",
+    };
+    const statusLabels = {
+      planned: "예정",
+      reserved: "예약",
+      paid: "결제",
+    };
+
+    const sectionOrder = [
+      { key: "flight", label: "결혼식 & 항공", badge: "01" },
+      { key: "madrid", label: "마드리드 일정", badge: "02" },
+      { key: "barcelona", label: "바르셀로나 일정", badge: "03" },
+      { key: "istanbul", label: "터키 이스탄불 스탑오버", badge: "04" },
+      { key: "check", label: "확인 필요 메모", badge: "!" },
+    ];
+
+    document.addEventListener("DOMContentLoaded", loadSchedule);
+
+    function toggleAll(open) {
+      document.querySelectorAll("details.day-card").forEach((card) => {
+        card.open = open;
+      });
+    }
+
+    async function loadSchedule() {
+      try {
+        const localData = readLocalData();
+        const data = localData || await fetchBundledData();
+        renderSchedule(data);
+      } catch (error) {
+        document.getElementById("scheduleRoot").innerHTML = `<div class="empty">일정 데이터를 불러오지 못했습니다.</div>`;
+      }
+    }
+
+    function readLocalData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function fetchBundledData() {
+      const response = await fetch("./trip-data.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("trip-data.json load failed");
+      return response.json();
+    }
+
+    function renderSchedule(data) {
+      const trip = data.trip || {};
+      const itinerary = [...(data.itinerary || [])].sort(sortByDateTime);
+      const flights = [...(data.flights || [])].sort((a, b) => (a.departureDate || "").localeCompare(b.departureDate || ""));
+      const stays = [...(data.stays || [])].sort((a, b) => (a.checkIn || "").localeCompare(b.checkIn || ""));
+      const checklist = data.checklist || [];
+
+      document.getElementById("pageTitle").textContent = trip.title || "신혼여행 일정표";
+      document.getElementById("subtitle").textContent = `${formatDateLong(trip.startDate)} ~ ${formatDateLong(trip.endDate)} · ${trip.route || ""}`;
+
+      renderPayments(data);
+      renderSummaryCards(trip, itinerary);
+      renderNav(itinerary, flights, checklist);
+
+      const grouped = groupBySection(itinerary, flights, stays, checklist);
+      document.getElementById("scheduleRoot").innerHTML = sectionOrder
+        .filter((section) => grouped[section.key]?.length)
+        .map((section) => renderSection(section, grouped[section.key]))
+        .join("");
+
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          const id = link.getAttribute("href");
+          if (!id || !id.startsWith("#")) return;
+          setTimeout(() => {
+            const section = document.querySelector(id);
+            const firstCard = section?.nextElementSibling?.querySelector("details.day-card");
+            if (firstCard) firstCard.open = true;
+          }, 50);
+        });
+      });
+    }
+
+    function renderPayments(data) {
+      const flights = data.flights || [];
+      const stays = data.stays || [];
+      const itinerary = data.itinerary || [];
+      const flightSpent = sum(flights, "spent");
+      const staySpent = sum(stays, "spent");
+      const itinerarySpent = sum(itinerary, "spent");
+      const totalSpent = flightSpent + staySpent + itinerarySpent;
+      const planned = sum(flights, "budget") + sum(stays, "budget") + sum(itinerary, "budget");
+
+      document.getElementById("totalSpent").textContent = formatMoney(totalSpent, data.trip?.currency);
+      document.getElementById("totalCaption").textContent = `예산 ${formatMoney(data.trip?.budget || planned, data.trip?.currency)} · 예정 금액 ${formatMoney(planned, data.trip?.currency)}`;
+
+      const items = [
+        ["항공권", `${flights.length}건`, flightSpent],
+        ["숙소", `${stays.length}건`, staySpent],
+        ["일정 사용", `${itinerary.filter((item) => Number(item.spent) > 0).length}건`, itinerarySpent],
+      ];
+      document.getElementById("paymentBreakdown").innerHTML = items.map(([label, caption, amount]) => `
+        <div class="payment-item">
+          <div>
+            <b>${label}</b>
+            <small>${caption}</small>
+          </div>
+          <strong>${formatMoney(amount, data.trip?.currency)}</strong>
+        </div>
+      `).join("");
+    }
+
+    function renderSummaryCards(trip, itinerary) {
+      const sectionCounts = {
+        madrid: itinerary.filter((item) => getSectionKey(item) === "madrid").length,
+        barcelona: itinerary.filter((item) => getSectionKey(item) === "barcelona").length,
+        istanbul: itinerary.filter((item) => getSectionKey(item) === "istanbul").length,
+      };
+      const cards = [
+        [formatDateShort(trip.startDate), "출발"],
+        ["마드리드", `${sectionCounts.madrid}개 일정`],
+        ["바르셀로나", `${sectionCounts.barcelona}개 일정`],
+        ["이스탄불", `${sectionCounts.istanbul}개 일정`],
+      ];
+      document.getElementById("summaryCards").innerHTML = cards.map(([title, label]) => `
+        <div class="summary-card"><strong>${escapeHtml(title)}</strong><span>${escapeHtml(label)}</span></div>
+      `).join("");
+    }
+
+    function renderNav(itinerary, flights, checklist) {
+      const available = new Set();
+      if (flights.length) available.add("flight");
+      itinerary.forEach((item) => available.add(getSectionKey(item)));
+      if (checklist.length) available.add("check");
+
+      document.getElementById("sectionNav").innerHTML = `
+        <a href="./index.html">플래너로 돌아가기</a>
+        ${sectionOrder.filter((item) => available.has(item.key)).map((item) => `<a href="#${item.key}">${item.label.replace(" 일정", "")}</a>`).join("")}
+      `;
+    }
+
+    function groupBySection(itinerary, flights, stays, checklist) {
+      const grouped = { flight: [], madrid: [], barcelona: [], istanbul: [], check: [] };
+      const dateGroups = new Map();
+
+      const findOrCreateDateGroup = (key, date, titleSuffix = dayTitle({}, key), description = cityLabel(key)) => {
+        const id = `${key}:${date || "undated"}`;
+        if (!dateGroups.has(id)) {
+          const group = {
+            date,
+            city: cityLabel(key),
+            title: `${formatDateLong(date)} · ${titleSuffix}`,
+            description,
+            entries: [],
+          };
+          dateGroups.set(id, group);
+          grouped[key].push(group);
+        }
+        return dateGroups.get(id);
+      };
+
+      flights.forEach((flight) => {
+        grouped.flight.push({
+          date: flight.departureDate,
+          city: "Flight",
+          title: `${flight.airline || "항공권"} ${flight.flightNumber || ""}`.trim(),
+          description: flight.route || "항공 이동",
+          rows: [
+            ["출발일", formatDateLong(flight.departureDate)],
+            ["구간", flight.route || "-"],
+            ["예약번호", flight.bookingRef || "미입력"],
+            ["금액", `${formatMoney(flight.spent || 0)} / 예산 ${formatMoney(flight.budget || 0)}`],
+          ],
+          places: [],
+          notes: [],
+        });
+      });
+
+      itinerary.forEach((item) => {
+        const key = getSectionKey(item);
+        const group = findOrCreateDateGroup(
+          key,
+          item.date,
+          dayTitle(item, key),
+          `${cityLabel(key)} 일정`
+        );
+        group.entries.push(item);
+      });
+
+      stays.forEach((stay) => {
+        const key = getSectionKey({ date: stay.checkIn, title: stay.name, address: stay.address, type: "stay" });
+        if (!grouped[key]) return;
+        const dateGroup = findOrCreateDateGroup(key, stay.checkIn, `${cityLabel(key)} 숙소`, "숙소 체크인");
+        const stayEntry = {
+          date: stay.checkIn,
+          time: "숙소",
+          type: "stay",
+          title: `${stay.name} 체크인`,
+          destination: stay.name,
+          address: stay.address,
+          budget: stay.budget,
+          spent: stay.spent,
+          status: "reserved",
+          note: `${formatDateShort(stay.checkIn)} 체크인 · ${formatDateShort(stay.checkOut)} 체크아웃`,
+        };
+        dateGroup.entries.push(stayEntry);
+      });
+
+      if (checklist.length) {
+        grouped.check.push({
+          date: "",
+          city: "Check",
+          title: "예약 전 체크리스트",
+          description: "확정 전 다시 확인할 항목",
+          checklist,
+        });
+      }
+
+      Object.keys(grouped).forEach((key) => {
+        grouped[key].sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+      });
+
+      return grouped;
+    }
+
+    function renderSection(section, cards) {
+      return `
+        <h2 id="${section.key}" class="section-title"><span class="badge">${section.badge}</span> ${section.label}</h2>
+        <div class="timeline">
+          ${cards.map((card, index) => renderDayCard(card, index === 0)).join("")}
+        </div>
+      `;
+    }
+
+    function renderDayCard(card, open) {
+      if (card.checklist) return renderChecklistCard(card, open);
+      const entries = (card.entries || []).sort(sortByDateTime);
+      return `
+        <details class="day-card" ${open ? "open" : ""}>
+          <summary class="day-head">
+            <div class="day-title">
+              <span class="toggle-icon">›</span>
+              <div>
+                <h2>${escapeHtml(card.title)}</h2>
+                <p>${escapeHtml(card.description || "")}</p>
+              </div>
+            </div>
+            <span class="city-pill">${escapeHtml(card.city || "")}</span>
+          </summary>
+          <div class="day-body">
+            ${card.rows ? renderRows(card.rows) : renderRows(entries.map(entryToRow))}
+            ${entries.length ? renderPlaces(entries) : ""}
+            ${entries.some((entry) => entry.note) ? `<div class="memo">${entries.filter((entry) => entry.note).map((entry) => `<strong>${escapeHtml(entry.title)}</strong><br>${escapeHtml(entry.note)}`).join("<br><br>")}</div>` : ""}
+          </div>
+        </details>
+      `;
+    }
+
+    function renderChecklistCard(card, open) {
+      return `
+        <details class="day-card" ${open ? "open" : ""}>
+          <summary class="day-head">
+            <div class="day-title">
+              <span class="toggle-icon">›</span>
+              <div>
+                <h2>${escapeHtml(card.title)}</h2>
+                <p>${escapeHtml(card.description)}</p>
+              </div>
+            </div>
+            <span class="city-pill">Check</span>
+          </summary>
+          <div class="day-body">
+            <div class="warn">
+              ${card.checklist.map((item) => `<strong>${item.done ? "완료" : "확인 필요"}</strong> · ${escapeHtml(item.label)}`).join("<br>")}
+            </div>
+          </div>
+        </details>
+      `;
+    }
+
+    function renderRows(rows) {
+      if (!rows.length) return "";
+      return `
+        <table class="schedule-table">
+          ${rows.map(([time, text]) => `<tr><th>${escapeHtml(time)}</th><td>${text}</td></tr>`).join("")}
+        </table>
+      `;
+    }
+
+    function renderPlaces(entries) {
+      const places = entries.filter((entry) => entry.destination || entry.address);
+      if (!places.length) return "";
+      return `
+        <div class="box">
+          <h3>📍 장소</h3>
+          <div class="place-list">
+            ${places.map((entry) => `
+              <div class="place">
+                <strong>${escapeHtml(entry.destination || entry.title)}</strong>
+                <span>${escapeHtml(typeLabels[entry.type] || "일정")} · ${escapeHtml(statusLabels[entry.status] || "예정")}</span>
+                ${entry.address ? `<a class="map-btn" href="${mapUrl(entry.address)}" target="_blank" rel="noreferrer">지도 열기</a>` : ""}
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function entryToRow(entry) {
+      const money = Number(entry.spent || entry.budget || 0)
+        ? ` <span class="tag">${formatMoney(entry.spent || entry.budget)}</span>`
+        : "";
+      const map = entry.address ? ` <a class="map-btn" href="${mapUrl(entry.address)}" target="_blank" rel="noreferrer">지도</a>` : "";
+      return [
+        entry.time || typeLabels[entry.type] || "일정",
+        `<strong>${escapeHtml(entry.title)}</strong><br>${escapeHtml(entry.destination || "")}${money}${map}`,
+      ];
+    }
+
+    function getSectionKey(item) {
+      const text = `${item.date || ""} ${item.title || ""} ${item.destination || ""} ${item.address || ""} ${item.route || ""}`.toLowerCase();
+      if (text.includes("barcelona") || text.includes("바르셀로나") || between(item.date, "2027-04-28", "2027-05-01")) return "barcelona";
+      if (text.includes("istanbul") || text.includes("이스탄불") || text.includes("taksim") || text.includes("galata") || between(item.date, "2027-05-02", "2027-05-05")) return "istanbul";
+      if (text.includes("madrid") || text.includes("마드리드") || between(item.date, "2027-04-26", "2027-04-27")) return "madrid";
+      return "flight";
+    }
+
+    function dayTitle(item, key) {
+      if (key === "madrid") return "마드리드";
+      if (key === "barcelona") return "바르셀로나";
+      if (key === "istanbul") return "이스탄불";
+      return item.title || "일정";
+    }
+
+    function cityLabel(key) {
+      return {
+        madrid: "Madrid",
+        barcelona: "Barcelona",
+        istanbul: "Istanbul",
+        flight: "Flight",
+        check: "Check",
+      }[key] || key;
+    }
+
+    function sortByDateTime(a, b) {
+      return `${a.date || a.departureDate || ""}${a.time || ""}`.localeCompare(`${b.date || b.departureDate || ""}${b.time || ""}`);
+    }
+
+    function between(value, start, end) {
+      return value && value >= start && value <= end;
+    }
+
+    function sum(items, key) {
+      return items.reduce((total, item) => total + numberValue(item[key]), 0);
+    }
+
+    function numberValue(value) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function formatMoney(value, currency = "KRW") {
+      return new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: currency || "KRW",
+        maximumFractionDigits: 0,
+      }).format(numberValue(value));
+    }
+
+    function parseDate(value) {
+      const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+      if (!match) return new Date(NaN);
+      return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    }
+
+    function formatDateShort(value) {
+      const date = parseDate(value);
+      if (Number.isNaN(date.getTime())) return value || "-";
+      return new Intl.DateTimeFormat("ko-KR", { month: "numeric", day: "numeric" }).format(date);
+    }
+
+    function formatDateLong(value) {
+      const date = parseDate(value);
+      if (Number.isNaN(date.getTime())) return value || "-";
+      return new Intl.DateTimeFormat("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+      }).format(date);
+    }
+
+    function mapUrl(address) {
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    }
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
