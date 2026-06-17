@@ -1,0 +1,147 @@
+{
+  "trip": {
+    "title": "Luna Honeymoon 2026",
+    "couple": "민서 & 지훈",
+    "route": "Santorini · Athens · Milos",
+    "startDate": "2026-09-14",
+    "endDate": "2026-09-22",
+    "budget": 18000000,
+    "currency": "KRW"
+  },
+  "github": {
+    "repoUrl": "https://github.com/your-name/honeymoon-atlas",
+    "branch": "main",
+    "dataPath": "trip-data.json"
+  },
+  "itinerary": [
+    {
+      "id": "itn-1",
+      "date": "2026-09-14",
+      "time": "22:35",
+      "type": "flight",
+      "title": "인천 출발",
+      "destination": "인천국제공항 제2터미널",
+      "address": "Incheon International Airport Terminal 2, Incheon, South Korea",
+      "budget": 2700000,
+      "spent": 2700000,
+      "status": "paid",
+      "note": "항공권 결제 완료. 라운지 이용권 확인."
+    },
+    {
+      "id": "itn-2",
+      "date": "2026-09-15",
+      "time": "12:20",
+      "type": "transport",
+      "title": "아테네 경유 후 산토리니 이동",
+      "destination": "Santorini Airport",
+      "address": "Santorini Airport, Thira 847 00, Greece",
+      "budget": 520000,
+      "spent": 480000,
+      "status": "reserved",
+      "note": "공항 픽업 기사 연락처 GitHub README에 함께 보관."
+    },
+    {
+      "id": "itn-3",
+      "date": "2026-09-16",
+      "time": "17:40",
+      "type": "tour",
+      "title": "이아 선셋 포토 투어",
+      "destination": "Oia Castle",
+      "address": "Oia Castle, Oia 847 02, Greece",
+      "budget": 360000,
+      "spent": 0,
+      "status": "reserved",
+      "note": "드레스 코드는 아이보리와 네이비. 일몰 40분 전 도착."
+    },
+    {
+      "id": "itn-4",
+      "date": "2026-09-17",
+      "time": "19:30",
+      "type": "food",
+      "title": "캘데라 디너",
+      "destination": "Ammoudi Bay",
+      "address": "Ammoudi Bay, Oia, Santorini, Greece",
+      "budget": 280000,
+      "spent": 0,
+      "status": "planned",
+      "note": "해산물 코스와 와인 페어링 후보 비교."
+    },
+    {
+      "id": "itn-5",
+      "date": "2026-09-19",
+      "time": "10:00",
+      "type": "tour",
+      "title": "아크로폴리스와 플라카 산책",
+      "destination": "Acropolis of Athens",
+      "address": "Acropolis of Athens, Athens 105 58, Greece",
+      "budget": 180000,
+      "spent": 120000,
+      "status": "paid",
+      "note": "오전 입장권 예약. 점심은 플라카 골목에서 즉흥 선택."
+    },
+    {
+      "id": "itn-6",
+      "date": "2026-09-21",
+      "time": "14:00",
+      "type": "shopping",
+      "title": "밀로스 기념품과 와인",
+      "destination": "Plaka Milos",
+      "address": "Plaka 848 00, Milos, Greece",
+      "budget": 350000,
+      "spent": 0,
+      "status": "planned",
+      "note": "가족 선물 리스트와 면세 한도 체크."
+    }
+  ],
+  "stays": [
+    {
+      "id": "stay-1",
+      "name": "Astra Suites Santorini",
+      "address": "Imerovigli, Santorini 847 00, Greece",
+      "checkIn": "2026-09-15",
+      "checkOut": "2026-09-18",
+      "budget": 4200000,
+      "spent": 3800000
+    },
+    {
+      "id": "stay-2",
+      "name": "Electra Metropolis Athens",
+      "address": "Mitropoleos 15, Athens 105 57, Greece",
+      "checkIn": "2026-09-18",
+      "checkOut": "2026-09-20",
+      "budget": 1400000,
+      "spent": 1320000
+    },
+    {
+      "id": "stay-3",
+      "name": "Milos Breeze Boutique Hotel",
+      "address": "Pollonia 848 00, Milos, Greece",
+      "checkIn": "2026-09-20",
+      "checkOut": "2026-09-22",
+      "budget": 1600000,
+      "spent": 0
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk-1",
+      "label": "여권 만료일 확인",
+      "done": true
+    },
+    {
+      "id": "chk-2",
+      "label": "국제운전면허증",
+      "done": false
+    },
+    {
+      "id": "chk-3",
+      "label": "웨딩 스냅 의상",
+      "done": false
+    },
+    {
+      "id": "chk-4",
+      "label": "여행자 보험 증권",
+      "done": true
+    }
+  ]
+}
