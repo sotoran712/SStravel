@@ -15,7 +15,17 @@
   },
   "itinerary": [],
   "flights": [],
-  "stays": [],
+  "stays": [
+    {
+      "id": "stay-1781709944022-fd05a538b57a9",
+      "name": "아스파시오스 소피아 아파트먼트",
+      "address": "Rda. de Valencia, 1, Arganzuela, 28012 Madrid, 스페인",
+      "checkIn": "2027-04-25",
+      "checkOut": "2027-04-27",
+      "budget": 600000,
+      "spent": 544054
+    }
+  ],
   "checklist": [
     {
       "id": "chk-1",
