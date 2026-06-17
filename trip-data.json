@@ -24,6 +24,24 @@
       "checkOut": "2027-04-27",
       "budget": 600000,
       "spent": 544054
+    },
+    {
+      "id": "stay-1781710041444-0d0b0385e1cb78",
+      "name": "요즘사람들",
+      "address": "95MC+3G7 바르셀로나 스페인",
+      "checkIn": "2027-04-28",
+      "checkOut": "2027-05-02",
+      "budget": 1100000,
+      "spent": 1037984
+    },
+    {
+      "id": "stay-1781710147527-8c1e703b2cae98",
+      "name": "카라코이 이스탄불",
+      "address": "Müeyyedzade, Kemeraltı Cd. No: 10, Beyoglu, 34425",
+      "checkIn": "2027-05-02",
+      "checkOut": "2027-05-04",
+      "budget": 260000,
+      "spent": 289322
     }
   ],
   "checklist": [
