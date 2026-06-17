@@ -1,11 +1,11 @@
 {
   "trip": {
-    "title": "Luna Honeymoon 2026",
-    "couple": "민서 & 지훈",
-    "route": "Santorini · Athens · Milos",
-    "startDate": "2026-09-14",
-    "endDate": "2026-09-22",
-    "budget": 18000000,
+    "title": "신혼여행계획",
+    "couple": "윤경&병현",
+    "route": "마드리드>바르셀로나>이스탄불",
+    "startDate": "2027-04-25",
+    "endDate": "2027-05-04",
+    "budget": 10000000,
     "currency": "KRW"
   },
   "github": {
