@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260618-toggle" />
   </head>
   <body>
     <div class="app-shell">
@@ -90,7 +90,7 @@
               </div>
             </div>
 
-            <form id="tripForm" class="form-stack collapsible-content is-collapsed">
+            <form id="tripForm" class="form-stack collapsible-content is-collapsed" hidden>
               <label>
                 <span>여행 이름</span>
                 <input id="tripTitleInput" name="title" required />
@@ -195,7 +195,7 @@
               </div>
             </div>
 
-            <form id="itineraryForm" class="form-stack collapsible-content is-collapsed">
+            <form id="itineraryForm" class="form-stack collapsible-content is-collapsed" hidden>
               <div class="field-grid three">
                 <label>
                   <span>날짜</span>
@@ -290,7 +290,7 @@
 
             <div id="stayList" class="stay-list"></div>
 
-            <form id="stayForm" class="form-stack compact-form collapsible-content is-collapsed">
+            <form id="stayForm" class="form-stack compact-form collapsible-content is-collapsed" hidden>
               <label>
                 <span>숙소 이름</span>
                 <input id="stayNameInput" required />
@@ -351,7 +351,7 @@
 
             <div id="flightList" class="flight-list"></div>
 
-            <form id="flightForm" class="form-stack compact-form collapsible-content is-collapsed">
+            <form id="flightForm" class="form-stack compact-form collapsible-content is-collapsed" hidden>
               <div class="field-grid">
                 <label>
                   <span>항공사</span>
@@ -433,7 +433,7 @@
               </div>
             </div>
 
-            <div id="githubConnectionFields" class="collapsible-content is-collapsed">
+            <div id="githubConnectionFields" class="collapsible-content is-collapsed" hidden>
               <form id="githubForm" class="form-stack compact-form">
                 <label>
                   <span>저장소 URL</span>
@@ -511,7 +511,11 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="./app.js"></script>
+    <script src="./app.js?v=20260618-toggle"></script>
+    <script
+      src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
+      defer
+      onload="window.lucide && window.lucide.createIcons()"
+    ></script>
   </body>
 </html>

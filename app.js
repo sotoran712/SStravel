@@ -202,6 +202,7 @@ document.addEventListener("DOMContentLoaded", init);
 async function init() {
   bindElements();
   bindEvents();
+  syncCollapsiblePanels();
   const hasLocalData = loadLocalData();
   applyRepositoryConfig();
   state.isDirty = localStorage.getItem(DIRTY_KEY) === "1";
@@ -350,6 +351,13 @@ function bindEvents() {
   els.importJsonInput.addEventListener("change", importJsonFile);
 }
 
+function syncCollapsiblePanels() {
+  formToggleConfigs.forEach(({ contentId }) => {
+    const content = els[contentId];
+    setCollapsiblePanel(contentId, Boolean(content && !content.classList.contains("is-collapsed") && !content.hidden));
+  });
+}
+
 function toggleCollapsiblePanel(contentId, options = {}) {
   const content = els[contentId];
   setCollapsiblePanel(contentId, content?.classList.contains("is-collapsed"), options);
@@ -391,6 +399,7 @@ function setCollapsiblePanel(contentId, isOpen, { focus = false } = {}) {
   const button = config ? els[config.buttonId] : null;
   if (!content || !button) return;
 
+  content.hidden = !isOpen;
   content.classList.toggle("is-collapsed", !isOpen);
   button.classList.toggle("is-open", isOpen);
   button.setAttribute("aria-expanded", String(isOpen));

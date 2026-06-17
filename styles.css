@@ -487,8 +487,9 @@ select:focus {
   display: none;
 }
 
-.collapsible-content.is-collapsed {
-  display: none;
+.collapsible-content.is-collapsed,
+.collapsible-content[hidden] {
+  display: none !important;
 }
 
 .primary-button svg,
