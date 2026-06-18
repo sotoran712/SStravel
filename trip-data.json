@@ -513,6 +513,11 @@
       "id": "chk-1781716227662-9b404d031d4dc",
       "label": "보조배터리",
       "done": false
+    },
+    {
+      "id": "chk-1781746164899-dcb8a4d16a035",
+      "label": "환전",
+      "done": false
     }
   ]
 }
