@@ -680,10 +680,10 @@
       const staySpent = sum(stays, "spent");
       const itinerarySpent = sum(paymentItinerary, "spent");
       const totalSpent = flightSpent + staySpent + itinerarySpent;
-      const planned = sum(flights, "budget") + sum(stays, "budget") + sum(paymentItinerary, "budget");
+      const totalBudget = Number(data.trip?.budget || 0);
 
       document.getElementById("totalSpent").textContent = formatMoney(totalSpent, data.trip?.currency);
-      document.getElementById("totalCaption").textContent = `예산 ${formatMoney(data.trip?.budget || planned, data.trip?.currency)} · 예정 금액 ${formatMoney(planned, data.trip?.currency)}`;
+      document.getElementById("totalCaption").textContent = `총예산 ${formatMoney(totalBudget, data.trip?.currency)} · 남은 예산 ${formatMoney(totalBudget - totalSpent, data.trip?.currency)}`;
 
       const items = [
         ["항공권", `${flights.length}건`, flightSpent],
@@ -760,7 +760,7 @@
             ["출발일", formatDateLong(flight.departureDate)],
             ["구간", flight.route || "-"],
             ["예약번호", flight.bookingRef || "미입력"],
-            ["금액", `${formatMoney(flight.spent || 0)} / 예산 ${formatMoney(flight.budget || 0)}`],
+            ["사용 금액", formatMoney(flight.spent || 0)],
           ],
           places: [],
           notes: [],
@@ -789,7 +789,7 @@
           title: `${stay.name} 체크인`,
           destination: stay.name,
           address: stay.address,
-          budget: stay.budget,
+          budget: 0,
           spent: stay.spent,
           status: "reserved",
           note: `${formatDateShort(stay.checkIn)} 체크인 · ${formatDateShort(stay.checkOut)} 체크아웃`,
@@ -902,8 +902,8 @@
     }
 
     function entryToRow(entry) {
-      const money = Number(entry.spent || entry.budget || 0)
-        ? ` <span class="tag">${formatMoney(entry.spent || entry.budget)}</span>`
+      const money = Number(entry.spent || 0)
+        ? ` <span class="tag">${formatMoney(entry.spent)}</span>`
         : "";
       const map = entry.address ? ` <a class="map-btn" href="${mapUrl(entry.address)}" target="_blank" rel="noreferrer">지도</a>` : "";
       return [

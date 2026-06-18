@@ -261,7 +261,6 @@ function bindElements() {
     "entryTitleInput",
     "entryDestinationInput",
     "entryAddressInput",
-    "entryBudgetInput",
     "entrySpentInput",
     "entryStatusInput",
     "entryNoteInput",
@@ -274,7 +273,6 @@ function bindElements() {
     "stayAddressInput",
     "stayCheckInInput",
     "stayCheckOutInput",
-    "stayBudgetInput",
     "staySpentInput",
     "staySubmitLabel",
     "flightList",
@@ -286,7 +284,6 @@ function bindElements() {
     "flightRouteInput",
     "flightDateInput",
     "flightBookingInput",
-    "flightBudgetInput",
     "flightSpentInput",
     "flightSubmitLabel",
     "checklistCount",
@@ -595,11 +592,11 @@ function renderBudget() {
   const { trip } = state.data;
   const totals = calculateTotals();
   const spentRatio = trip.budget > 0 ? Math.min((totals.spent / trip.budget) * 100, 100) : 0;
-  const plannedRatio = trip.budget > 0 ? Math.round((totals.planned / trip.budget) * 100) : 0;
+  const remaining = trip.budget - totals.spent;
 
   els.budgetBar.style.width = `${spentRatio}%`;
   els.spentAmount.textContent = formatMoney(totals.spent);
-  els.plannedAmount.textContent = `${formatMoney(totals.planned)} · ${plannedRatio}%`;
+  els.plannedAmount.textContent = formatMoney(remaining);
   els.budgetHealth.textContent = getBudgetHealth(trip.budget, totals.spent);
   els.categoryBreakdown.innerHTML = "";
 
@@ -663,6 +660,15 @@ function renderItinerary() {
     const card = document.createElement("article");
     card.className = "itinerary-card";
     const moneyHtml = renderItineraryMoney(item);
+    const destinationText = item.destination ? ` · ${escapeHtml(item.destination)}` : "";
+    const mapQuery = item.address || item.destination;
+    const mapLink = mapQuery
+      ? `
+            <a class="map-link" href="${mapUrl(mapQuery)}" target="_blank" rel="noreferrer">
+              <i data-lucide="map-pin"></i>
+              Google Maps
+            </a>`
+      : "";
     card.innerHTML = `
       <div class="time-cell">
         <strong>${item.time || "--:--"}</strong>
@@ -673,15 +679,12 @@ function renderItinerary() {
           <h3>${escapeHtml(item.title)}</h3>
           <span class="status-chip ${item.status}">${statusLabels[item.status] || "예정"}</span>
         </div>
-        <p class="card-meta">${formatDateLong(item.date)} · ${escapeHtml(item.destination)}</p>
+        <p class="card-meta">${formatDateLong(item.date)}${destinationText}</p>
         <p class="card-note">${escapeHtml(item.note || "메모 없음")}</p>
         <div class="card-footer">
           <div class="money-row">${moneyHtml}</div>
           <div class="card-actions">
-            <a class="map-link" href="${mapUrl(item.address || item.destination)}" target="_blank" rel="noreferrer">
-              <i data-lucide="map-pin"></i>
-              Google Maps
-            </a>
+            ${mapLink}
             <button class="small-action" type="button" data-action="edit" data-id="${item.id}">수정</button>
             <button class="small-action" type="button" data-action="delete" data-id="${item.id}">삭제</button>
           </div>
@@ -705,20 +708,23 @@ function renderStays() {
     .forEach((stay) => {
       const card = document.createElement("article");
       card.className = "stay-card";
+      const mapLink = stay.address
+        ? `
+          <a class="map-link" href="${mapUrl(stay.address)}" target="_blank" rel="noreferrer">
+            <i data-lucide="map-pin"></i>
+            지도
+          </a>`
+        : "";
       card.innerHTML = `
         <div>
           <h3>${escapeHtml(stay.name)}</h3>
           <div class="stay-meta">${formatDateShort(stay.checkIn)} - ${formatDateShort(stay.checkOut)}</div>
         </div>
         <div class="money-row">
-          <span class="money-chip">예산 ${formatMoney(stay.budget || 0)}</span>
           <span class="money-chip">사용 ${formatMoney(stay.spent || 0)}</span>
         </div>
         <div class="card-actions">
-          <a class="map-link" href="${mapUrl(stay.address)}" target="_blank" rel="noreferrer">
-            <i data-lucide="map-pin"></i>
-            지도
-          </a>
+          ${mapLink}
           <button class="small-action" type="button" data-stay-action="edit" data-id="${stay.id}">수정</button>
           <button class="small-action" type="button" data-stay-action="delete" data-id="${stay.id}">삭제</button>
         </div>
@@ -737,7 +743,6 @@ function renderItineraryMoney(item) {
   }
 
   return `
-    <span class="money-chip">예산 ${formatMoney(item.budget || 0)}</span>
     <span class="money-chip">사용 ${formatMoney(item.spent || 0)}</span>
   `;
 }
@@ -762,7 +767,6 @@ function renderFlights() {
           <div class="stay-meta">${formatDateShort(flight.departureDate)} · ${escapeHtml(flight.route)}</div>
         </div>
         <div class="money-row">
-          <span class="money-chip">예산 ${formatMoney(flight.budget || 0)}</span>
           <span class="money-chip">사용 ${formatMoney(flight.spent || 0)}</span>
         </div>
         <div class="summary-line">예약번호 ${escapeHtml(flight.bookingRef || "미입력")}</div>
@@ -844,7 +848,7 @@ function handleItinerarySubmit(event) {
     title: els.entryTitleInput.value.trim(),
     destination: els.entryDestinationInput.value.trim(),
     address: els.entryAddressInput.value.trim(),
-    budget: numberValue(els.entryBudgetInput.value),
+    budget: 0,
     spent: numberValue(els.entrySpentInput.value),
     status: els.entryStatusInput.value,
     note: els.entryNoteInput.value.trim(),
@@ -878,9 +882,8 @@ function handleItineraryAction(event) {
     els.entryTimeInput.value = item.time;
     els.entryTypeInput.value = item.type;
     els.entryTitleInput.value = item.title;
-    els.entryDestinationInput.value = item.destination;
-    els.entryAddressInput.value = item.address;
-    els.entryBudgetInput.value = item.budget;
+    els.entryDestinationInput.value = item.destination || "";
+    els.entryAddressInput.value = item.address || "";
     els.entrySpentInput.value = item.spent;
     els.entryStatusInput.value = item.status;
     els.entryNoteInput.value = item.note || "";
@@ -903,7 +906,7 @@ function handleStaySubmit(event) {
     address: els.stayAddressInput.value.trim(),
     checkIn: els.stayCheckInInput.value,
     checkOut: els.stayCheckOutInput.value,
-    budget: numberValue(els.stayBudgetInput.value),
+    budget: 0,
     spent: numberValue(els.staySpentInput.value),
   };
 
@@ -931,10 +934,9 @@ function handleStayAction(event) {
     els.staySubmitLabel.textContent = "수정 저장";
     els.cancelStayEditButton.classList.remove("is-hidden");
     els.stayNameInput.value = stay.name;
-    els.stayAddressInput.value = stay.address;
+    els.stayAddressInput.value = stay.address || "";
     els.stayCheckInInput.value = stay.checkIn;
     els.stayCheckOutInput.value = stay.checkOut;
-    els.stayBudgetInput.value = stay.budget;
     els.staySpentInput.value = stay.spent;
     openCollapsiblePanel("stayForm");
     els.stayNameInput.focus();
@@ -956,7 +958,7 @@ function handleFlightSubmit(event) {
     route: els.flightRouteInput.value.trim(),
     departureDate: els.flightDateInput.value,
     bookingRef: els.flightBookingInput.value.trim(),
-    budget: numberValue(els.flightBudgetInput.value),
+    budget: 0,
     spent: numberValue(els.flightSpentInput.value),
   };
 
@@ -988,7 +990,6 @@ function handleFlightAction(event) {
     els.flightRouteInput.value = flight.route;
     els.flightDateInput.value = flight.departureDate;
     els.flightBookingInput.value = flight.bookingRef || "";
-    els.flightBudgetInput.value = flight.budget;
     els.flightSpentInput.value = flight.spent;
     openCollapsiblePanel("flightForm");
     els.flightAirlineInput.focus();
@@ -1107,35 +1108,28 @@ function clearFlightForm() {
 
 function calculateTotals() {
   const byType = {};
-  let planned = 0;
   let spent = 0;
 
   state.data.itinerary.forEach((item) => {
     if (isLedgerManagedItinerary(item)) return;
-    const budget = numberValue(item.budget);
     const used = numberValue(item.spent);
-    planned += budget;
     spent += used;
-    byType[item.type] = (byType[item.type] || 0) + Math.max(used, budget);
+    byType[item.type] = (byType[item.type] || 0) + used;
   });
 
   state.data.stays.forEach((stay) => {
-    const budget = numberValue(stay.budget);
     const used = numberValue(stay.spent);
-    planned += budget;
     spent += used;
-    byType.stay = (byType.stay || 0) + Math.max(used, budget);
+    byType.stay = (byType.stay || 0) + used;
   });
 
   state.data.flights.forEach((flight) => {
-    const budget = numberValue(flight.budget);
     const used = numberValue(flight.spent);
-    planned += budget;
     spent += used;
-    byType.flight = (byType.flight || 0) + Math.max(used, budget);
+    byType.flight = (byType.flight || 0) + used;
   });
 
-  return { planned, spent, byType };
+  return { planned: spent, spent, byType };
 }
 
 function isLedgerManagedItinerary(item) {
@@ -1397,21 +1391,25 @@ function buildMarkdown() {
     .slice()
     .sort((a, b) => `${a.date}${a.time}`.localeCompare(`${b.date}${b.time}`))
     .map((item) => {
-      const map = mapUrl(item.address || item.destination);
-      return `| ${formatDateShort(item.date)} | ${item.time} | ${typeLabels[item.type] || "기타"} | [${safeMd(item.title)}](${map}) | ${safeMd(item.destination)} | ${formatMoney(item.budget || 0)} | ${formatMoney(item.spent || 0)} | ${statusLabels[item.status] || "예정"} |`;
+      const mapQuery = item.address || item.destination;
+      const title = mapQuery ? `[${safeMd(item.title)}](${mapUrl(mapQuery)})` : safeMd(item.title);
+      return `| ${formatDateShort(item.date)} | ${item.time} | ${typeLabels[item.type] || "기타"} | ${title} | ${safeMd(item.destination || "-")} | ${formatMoney(item.spent || 0)} | ${statusLabels[item.status] || "예정"} |`;
     })
     .join("\n");
 
   const stayRows = stays
     .slice()
     .sort((a, b) => a.checkIn.localeCompare(b.checkIn))
-    .map((stay) => `| [${safeMd(stay.name)}](${mapUrl(stay.address)}) | ${formatDateShort(stay.checkIn)} | ${formatDateShort(stay.checkOut)} | ${formatMoney(stay.budget || 0)} | ${formatMoney(stay.spent || 0)} |`)
+    .map((stay) => {
+      const name = stay.address ? `[${safeMd(stay.name)}](${mapUrl(stay.address)})` : safeMd(stay.name);
+      return `| ${name} | ${formatDateShort(stay.checkIn)} | ${formatDateShort(stay.checkOut)} | ${formatMoney(stay.spent || 0)} |`;
+    })
     .join("\n");
 
   const flightRows = flights
     .slice()
     .sort((a, b) => a.departureDate.localeCompare(b.departureDate))
-    .map((flight) => `| ${formatDateShort(flight.departureDate)} | ${safeMd(flight.airline)} | ${safeMd(flight.flightNumber || "-")} | ${safeMd(flight.route)} | ${safeMd(flight.bookingRef || "-")} | ${formatMoney(flight.budget || 0)} | ${formatMoney(flight.spent || 0)} |`)
+    .map((flight) => `| ${formatDateShort(flight.departureDate)} | ${safeMd(flight.airline)} | ${safeMd(flight.flightNumber || "-")} | ${safeMd(flight.route)} | ${safeMd(flight.bookingRef || "-")} | ${formatMoney(flight.spent || 0)} |`)
     .join("\n");
 
   const checklistRows = checklist
@@ -1426,27 +1424,27 @@ function buildMarkdown() {
 
 ## Budget
 
-| Total | Planned | Spent | Remaining |
-| --- | ---: | ---: | ---: |
-| ${formatMoney(trip.budget)} | ${formatMoney(totals.planned)} | ${formatMoney(totals.spent)} | ${formatMoney(trip.budget - totals.spent)} |
+| Total | Spent | Remaining |
+| ---: | ---: | ---: |
+| ${formatMoney(trip.budget)} | ${formatMoney(totals.spent)} | ${formatMoney(trip.budget - totals.spent)} |
 
 ## Itinerary
 
-| Date | Time | Type | Plan | Destination | Budget | Spent | Status |
-| --- | --- | --- | --- | --- | ---: | ---: | --- |
-${rows || "| - | - | - | - | - | - | - | - |"}
+| Date | Time | Type | Plan | Destination | Spent | Status |
+| --- | --- | --- | --- | --- | ---: | --- |
+${rows || "| - | - | - | - | - | - | - |"}
 
 ## Flights
 
-| Date | Airline | Flight | Route | Booking Ref | Budget | Spent |
-| --- | --- | --- | --- | --- | ---: | ---: |
-${flightRows || "| - | - | - | - | - | - | - |"}
+| Date | Airline | Flight | Route | Booking Ref | Spent |
+| --- | --- | --- | --- | --- | ---: |
+${flightRows || "| - | - | - | - | - | - |"}
 
 ## Stays
 
-| Stay | Check-in | Check-out | Budget | Spent |
-| --- | --- | --- | ---: | ---: |
-${stayRows || "| - | - | - | - | - |"}
+| Stay | Check-in | Check-out | Spent |
+| --- | --- | --- | ---: |
+${stayRows || "| - | - | - | - |"}
 
 ## Checklist
 

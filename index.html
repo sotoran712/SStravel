@@ -140,7 +140,7 @@
                 <strong id="spentAmount">-</strong>
               </article>
               <article>
-                <span>예정 금액</span>
+                <span>남은 예산</span>
                 <strong id="plannedAmount">-</strong>
               </article>
             </div>
@@ -222,18 +222,14 @@
                 </label>
                 <label>
                   <span>목적지</span>
-                  <input id="entryDestinationInput" name="destination" required />
+                  <input id="entryDestinationInput" name="destination" placeholder="선택 입력" />
                 </label>
               </div>
               <label>
                 <span>Google Maps 주소</span>
-                <input id="entryAddressInput" name="address" required />
+                <input id="entryAddressInput" name="address" placeholder="주소가 있으면 지도 버튼이 표시됩니다" />
               </label>
-              <div class="field-grid three">
-                <label>
-                  <span>예산 금액</span>
-                  <input id="entryBudgetInput" name="budget" type="number" min="0" step="1" />
-                </label>
+              <div class="field-grid">
                 <label>
                   <span>사용 금액</span>
                   <input id="entrySpentInput" name="spent" type="number" min="0" step="1" />
@@ -294,7 +290,7 @@
               </label>
               <label>
                 <span>주소</span>
-                <input id="stayAddressInput" required />
+                <input id="stayAddressInput" placeholder="주소가 있으면 지도 버튼이 표시됩니다" />
               </label>
               <div class="field-grid">
                 <label>
@@ -306,16 +302,10 @@
                   <input id="stayCheckOutInput" type="date" required />
                 </label>
               </div>
-              <div class="field-grid">
-                <label>
-                  <span>예산</span>
-                  <input id="stayBudgetInput" type="number" min="0" step="1" />
-                </label>
-                <label>
-                  <span>사용</span>
-                  <input id="staySpentInput" type="number" min="0" step="1" />
-                </label>
-              </div>
+              <label>
+                <span>사용 금액</span>
+                <input id="staySpentInput" type="number" min="0" step="1" />
+              </label>
               <button class="secondary-button fill" type="submit">
                 <i data-lucide="hotel"></i>
                 <span id="staySubmitLabel">숙소 추가</span>
@@ -373,16 +363,10 @@
                   <input id="flightBookingInput" placeholder="선택 입력" />
                 </label>
               </div>
-              <div class="field-grid">
-                <label>
-                  <span>예산</span>
-                  <input id="flightBudgetInput" type="number" min="0" step="1" />
-                </label>
-                <label>
-                  <span>사용</span>
-                  <input id="flightSpentInput" type="number" min="0" step="1" />
-                </label>
-              </div>
+              <label>
+                <span>사용 금액</span>
+                <input id="flightSpentInput" type="number" min="0" step="1" />
+              </label>
               <button class="secondary-button fill" type="submit">
                 <i data-lucide="plane"></i>
                 <span id="flightSubmitLabel">항공권 추가</span>
@@ -508,7 +492,7 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="./app.js?v=20260618-dedupe-budget"></script>
+    <script src="./app.js?v=20260618-simple-budget"></script>
     <script
       src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
       defer
