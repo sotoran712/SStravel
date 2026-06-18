@@ -23,6 +23,12 @@ const statusLabels = {
   paid: "결제",
 };
 
+const ledgerManagedTypes = new Set(["flight", "stay"]);
+const ledgerManagedLabels = {
+  flight: "항공권 목록에서 계산",
+  stay: "숙소 목록에서 계산",
+};
+
 const defaultData = {
   trip: {
     title: "Luna Honeymoon 2026",
@@ -656,6 +662,7 @@ function renderItinerary() {
   items.forEach((item) => {
     const card = document.createElement("article");
     card.className = "itinerary-card";
+    const moneyHtml = renderItineraryMoney(item);
     card.innerHTML = `
       <div class="time-cell">
         <strong>${item.time || "--:--"}</strong>
@@ -669,10 +676,7 @@ function renderItinerary() {
         <p class="card-meta">${formatDateLong(item.date)} · ${escapeHtml(item.destination)}</p>
         <p class="card-note">${escapeHtml(item.note || "메모 없음")}</p>
         <div class="card-footer">
-          <div class="money-row">
-            <span class="money-chip">예산 ${formatMoney(item.budget || 0)}</span>
-            <span class="money-chip">사용 ${formatMoney(item.spent || 0)}</span>
-          </div>
+          <div class="money-row">${moneyHtml}</div>
           <div class="card-actions">
             <a class="map-link" href="${mapUrl(item.address || item.destination)}" target="_blank" rel="noreferrer">
               <i data-lucide="map-pin"></i>
@@ -725,6 +729,17 @@ function renderStays() {
   els.stayList.querySelectorAll("[data-stay-action]").forEach((button) => {
     button.addEventListener("click", handleStayAction);
   });
+}
+
+function renderItineraryMoney(item) {
+  if (isLedgerManagedItinerary(item)) {
+    return `<span class="money-chip">${ledgerManagedLabels[item.type] || "전용 목록에서 계산"}</span>`;
+  }
+
+  return `
+    <span class="money-chip">예산 ${formatMoney(item.budget || 0)}</span>
+    <span class="money-chip">사용 ${formatMoney(item.spent || 0)}</span>
+  `;
 }
 
 function renderFlights() {
@@ -1096,6 +1111,7 @@ function calculateTotals() {
   let spent = 0;
 
   state.data.itinerary.forEach((item) => {
+    if (isLedgerManagedItinerary(item)) return;
     const budget = numberValue(item.budget);
     const used = numberValue(item.spent);
     planned += budget;
@@ -1120,6 +1136,10 @@ function calculateTotals() {
   });
 
   return { planned, spent, byType };
+}
+
+function isLedgerManagedItinerary(item) {
+  return ledgerManagedTypes.has(item.type);
 }
 
 function filteredItinerary() {

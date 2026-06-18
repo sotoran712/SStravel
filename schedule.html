@@ -594,6 +594,7 @@
       reserved: "예약",
       paid: "결제",
     };
+    const ledgerManagedTypes = new Set(["flight", "stay"]);
 
     const sectionOrder = [
       { key: "flight", label: "결혼식 & 항공", badge: "01" },
@@ -674,11 +675,12 @@
       const flights = data.flights || [];
       const stays = data.stays || [];
       const itinerary = data.itinerary || [];
+      const paymentItinerary = itinerary.filter((item) => !isLedgerManagedItinerary(item));
       const flightSpent = sum(flights, "spent");
       const staySpent = sum(stays, "spent");
-      const itinerarySpent = sum(itinerary, "spent");
+      const itinerarySpent = sum(paymentItinerary, "spent");
       const totalSpent = flightSpent + staySpent + itinerarySpent;
-      const planned = sum(flights, "budget") + sum(stays, "budget") + sum(itinerary, "budget");
+      const planned = sum(flights, "budget") + sum(stays, "budget") + sum(paymentItinerary, "budget");
 
       document.getElementById("totalSpent").textContent = formatMoney(totalSpent, data.trip?.currency);
       document.getElementById("totalCaption").textContent = `예산 ${formatMoney(data.trip?.budget || planned, data.trip?.currency)} · 예정 금액 ${formatMoney(planned, data.trip?.currency)}`;
@@ -686,7 +688,7 @@
       const items = [
         ["항공권", `${flights.length}건`, flightSpent],
         ["숙소", `${stays.length}건`, staySpent],
-        ["일정 사용", `${itinerary.filter((item) => Number(item.spent) > 0).length}건`, itinerarySpent],
+        ["일정 사용", `${paymentItinerary.filter((item) => Number(item.spent) > 0).length}건`, itinerarySpent],
       ];
       document.getElementById("paymentBreakdown").innerHTML = items.map(([label, caption, amount]) => `
         <div class="payment-item">
@@ -959,6 +961,10 @@
     function numberValue(value) {
       const parsed = Number(value);
       return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function isLedgerManagedItinerary(item) {
+      return ledgerManagedTypes.has(item.type);
     }
 
     function formatMoney(value, currency = "KRW") {
