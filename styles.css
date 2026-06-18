@@ -750,8 +750,11 @@ select:focus {
 }
 
 .map-link {
+  width: 36px;
+  min-width: 36px;
+  flex: 0 0 36px;
   min-height: 36px;
-  padding: 0 11px;
+  padding: 0;
   color: #fff;
   background: var(--coral);
 }
@@ -1187,6 +1190,12 @@ select:focus {
   .small-action {
     flex: 1 1 120px;
     min-height: 34px;
+  }
+
+  .map-link {
+    width: 34px;
+    min-width: 34px;
+    flex: 0 0 34px;
   }
 
   .budget-grid {

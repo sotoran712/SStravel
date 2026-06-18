@@ -664,9 +664,8 @@ function renderItinerary() {
     const mapQuery = item.address || item.destination;
     const mapLink = mapQuery
       ? `
-            <a class="map-link" href="${mapUrl(mapQuery)}" target="_blank" rel="noreferrer">
+            <a class="map-link" href="${mapUrl(mapQuery)}" target="_blank" rel="noreferrer" aria-label="지도에서 열기" title="지도에서 열기">
               <i data-lucide="map-pin"></i>
-              Google Maps
             </a>`
       : "";
     card.innerHTML = `
@@ -710,9 +709,8 @@ function renderStays() {
       card.className = "stay-card";
       const mapLink = stay.address
         ? `
-          <a class="map-link" href="${mapUrl(stay.address)}" target="_blank" rel="noreferrer">
+          <a class="map-link" href="${mapUrl(stay.address)}" target="_blank" rel="noreferrer" aria-label="지도에서 열기" title="지도에서 열기">
             <i data-lucide="map-pin"></i>
-            지도
           </a>`
         : "";
       card.innerHTML = `
