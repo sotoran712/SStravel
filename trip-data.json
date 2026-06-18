@@ -467,6 +467,26 @@
       "bookingRef": "",
       "budget": 2300000,
       "spent": 2234800
+    },
+    {
+      "id": "flt-1781791518052-3cf1c3964a2ce",
+      "airline": "터키항공",
+      "flightNumber": "TK1854",
+      "route": "BCN>IST",
+      "departureDate": "2027-05-02",
+      "bookingRef": "VNZVRX",
+      "budget": 1300000,
+      "spent": 1231800
+    },
+    {
+      "id": "flt-1781791559692-6d524bbaaf21a",
+      "airline": "터키항공",
+      "flightNumber": "TK020",
+      "route": "IST>ICN",
+      "departureDate": "2027-05-04",
+      "bookingRef": "VNZVRX",
+      "budget": 1300000,
+      "spent": 1231800
     }
   ],
   "stays": [
@@ -496,6 +516,15 @@
       "checkOut": "2027-05-04",
       "budget": 260000,
       "spent": 289322
+    },
+    {
+      "id": "stay-1781791719936-adefe93f1eb268",
+      "name": "카라코이 이스탄불",
+      "address": "Müeyyedzade, Kemeraltı Cd. No: 10, Beyoglu, 34425",
+      "checkIn": "2027-05-02",
+      "checkOut": "2027-05-04",
+      "budget": 500000,
+      "spent": 496376
     }
   ],
   "checklist": [
