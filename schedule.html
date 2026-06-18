@@ -463,6 +463,48 @@
       font-weight: 800;
     }
 
+    .entry-destination {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .entry-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .detail-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .detail-chip.stay {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .detail-chip b {
+      color: inherit;
+    }
+
+    .entry-note {
+      margin-top: 7px;
+      color: #245b48;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
     .memo {
       padding: 12px 14px;
       border-left: 4px solid var(--green);
@@ -643,16 +685,17 @@
       const itinerary = [...(data.itinerary || [])].sort(sortByDateTime);
       const flights = [...(data.flights || [])].sort((a, b) => (a.departureDate || "").localeCompare(b.departureDate || ""));
       const stays = [...(data.stays || [])].sort((a, b) => (a.checkIn || "").localeCompare(b.checkIn || ""));
+      const unifiedEntries = buildUnifiedEntries(itinerary, flights, stays);
       const checklist = data.checklist || [];
 
       document.getElementById("pageTitle").textContent = trip.title || "신혼여행 일정표";
       document.getElementById("subtitle").textContent = `${formatDateLong(trip.startDate)} ~ ${formatDateLong(trip.endDate)} · ${trip.route || ""}`;
 
       renderPayments(data);
-      renderSummaryCards(trip, itinerary);
-      renderNav(itinerary, flights, checklist);
+      renderSummaryCards(trip, unifiedEntries);
+      renderNav(unifiedEntries, checklist);
 
-      const grouped = groupBySection(itinerary, flights, stays, checklist);
+      const grouped = groupBySection(unifiedEntries, checklist);
       document.getElementById("scheduleRoot").innerHTML = sectionOrder
         .filter((section) => grouped[section.key]?.length)
         .map((section) => renderSection(section, grouped[section.key]))
@@ -718,9 +761,8 @@
       `).join("");
     }
 
-    function renderNav(itinerary, flights, checklist) {
+    function renderNav(itinerary, checklist) {
       const available = new Set();
-      if (flights.length) available.add("flight");
       itinerary.forEach((item) => available.add(getSectionKey(item)));
       if (checklist.length) available.add("check");
 
@@ -730,7 +772,37 @@
       `;
     }
 
-    function groupBySection(itinerary, flights, stays, checklist) {
+    function buildUnifiedEntries(itinerary, flights, stays) {
+      const entries = itinerary.map((item) => ({ ...item, details: [] }));
+      const matchedFlightIds = new Set();
+      const matchedStayIds = new Set();
+
+      flights.forEach((flight) => {
+        const entry = findMatchingFlightEntry(entries, flight);
+        if (!entry) return;
+        entry.details.push(createFlightDetail(flight));
+        matchedFlightIds.add(flight.id);
+      });
+
+      stays.forEach((stay) => {
+        const entry = findMatchingStayEntry(entries, stay);
+        if (!entry) return;
+        entry.details.push(createStayDetail(stay));
+        matchedStayIds.add(stay.id);
+      });
+
+      flights
+        .filter((flight) => !matchedFlightIds.has(flight.id))
+        .forEach((flight) => entries.push(createFlightEntry(flight)));
+
+      stays
+        .filter((stay) => !matchedStayIds.has(stay.id))
+        .forEach((stay) => entries.push(createStayEntry(stay)));
+
+      return entries.sort(sortByDateTime);
+    }
+
+    function groupBySection(itinerary, checklist) {
       const grouped = { flight: [], madrid: [], barcelona: [], istanbul: [], check: [] };
       const dateGroups = new Map();
 
@@ -750,23 +822,6 @@
         return dateGroups.get(id);
       };
 
-      flights.forEach((flight) => {
-        grouped.flight.push({
-          date: flight.departureDate,
-          city: "Flight",
-          title: `${flight.airline || "항공권"} ${flight.flightNumber || ""}`.trim(),
-          description: flight.route || "항공 이동",
-          rows: [
-            ["출발일", formatDateLong(flight.departureDate)],
-            ["구간", flight.route || "-"],
-            ["예약번호", flight.bookingRef || "미입력"],
-            ["사용 금액", formatMoney(flight.spent || 0)],
-          ],
-          places: [],
-          notes: [],
-        });
-      });
-
       itinerary.forEach((item) => {
         const key = getSectionKey(item);
         const group = findOrCreateDateGroup(
@@ -776,25 +831,6 @@
           dayDescription(item, key)
         );
         group.entries.push(item);
-      });
-
-      stays.forEach((stay) => {
-        const key = getSectionKey({ date: stay.checkIn, title: stay.name, address: stay.address, type: "stay" });
-        if (!grouped[key]) return;
-        const dateGroup = findOrCreateDateGroup(key, stay.checkIn, `${cityLabel(key)} 숙소`, "숙소 체크인");
-        const stayEntry = {
-          date: stay.checkIn,
-          time: "숙소",
-          type: "stay",
-          title: `${stay.name} 체크인`,
-          destination: stay.name,
-          address: stay.address,
-          budget: 0,
-          spent: stay.spent,
-          status: "reserved",
-          note: `${formatDateShort(stay.checkIn)} 체크인 · ${formatDateShort(stay.checkOut)} 체크아웃`,
-        };
-        dateGroup.entries.push(stayEntry);
       });
 
       if (checklist.length) {
@@ -816,6 +852,81 @@
       });
 
       return grouped;
+    }
+
+    function findMatchingFlightEntry(entries, flight) {
+      const flightNumber = normalizeText(flight.flightNumber);
+      if (!flight.departureDate || !flightNumber) return null;
+      return entries.find((entry) => {
+        if (entry.date !== flight.departureDate || entry.type !== "flight") return false;
+        return normalizeText(`${entry.title || ""} ${entry.note || ""}`).includes(flightNumber);
+      }) || null;
+    }
+
+    function findMatchingStayEntry(entries, stay) {
+      const stayName = normalizeText(stay.name);
+      const stayAddress = normalizePlaceKey(stay.address);
+      if (!stay.checkIn) return null;
+      return entries.find((entry) => {
+        if (entry.date !== stay.checkIn || entry.type !== "stay") return false;
+        const entryName = normalizeText(`${entry.title || ""} ${entry.destination || ""}`);
+        const entryAddress = normalizePlaceKey(entry.address);
+        return (stayName && entryName.includes(stayName)) || (stayAddress && stayAddress === entryAddress);
+      }) || null;
+    }
+
+    function createFlightEntry(flight) {
+      return {
+        id: `flight-${flight.id || createStableKey(flight.route || flight.flightNumber)}`,
+        date: flight.departureDate,
+        time: "",
+        type: "flight",
+        title: `${flight.airline || "항공권"} ${flight.flightNumber || ""}`.trim(),
+        destination: flight.route || "항공 이동",
+        address: "",
+        status: flight.bookingRef ? "reserved" : "planned",
+        note: "",
+        details: [createFlightDetail(flight)],
+      };
+    }
+
+    function createStayEntry(stay) {
+      return {
+        id: `stay-${stay.id || createStableKey(stay.name)}`,
+        date: stay.checkIn,
+        time: "숙소",
+        type: "stay",
+        title: `${stay.name || "숙소"} 체크인`,
+        destination: stay.name || "",
+        address: stay.address || "",
+        status: "reserved",
+        note: "",
+        details: [createStayDetail(stay)],
+      };
+    }
+
+    function createFlightDetail(flight) {
+      return {
+        type: "flight",
+        label: "항공권",
+        values: [
+          `${flight.airline || ""} ${flight.flightNumber || ""}`.trim(),
+          flight.route || "",
+          flight.bookingRef ? `예약 ${flight.bookingRef}` : "",
+        ].filter(Boolean),
+      };
+    }
+
+    function createStayDetail(stay) {
+      return {
+        type: "stay",
+        label: "숙소",
+        values: [
+          `${formatDateShort(stay.checkIn)} 체크인`,
+          `${formatDateShort(stay.checkOut)} 체크아웃`,
+          stayNights(stay) ? `${stayNights(stay)}박` : "",
+        ].filter(Boolean),
+      };
     }
 
     function renderSection(section, cards) {
@@ -845,7 +956,6 @@
           <div class="day-body">
             ${card.rows ? renderRows(card.rows) : renderRows(entries.map(entryToRow))}
             ${entries.length ? renderPlaces(entries) : ""}
-            ${entries.some((entry) => entry.note) ? `<div class="memo">${entries.filter((entry) => entry.note).map((entry) => `<strong>${escapeHtml(entry.title)}</strong><br>${escapeHtml(entry.note)}`).join("<br><br>")}</div>` : ""}
           </div>
         </details>
       `;
@@ -883,17 +993,37 @@
     }
 
     function renderPlaces(entries) {
-      const places = entries.filter((entry) => entry.destination || entry.address);
+      const placeMap = new Map();
+      entries
+        .filter((entry) => entry.destination || entry.address)
+        .forEach((entry) => {
+          const key = normalizePlaceKey(entry.address || entry.destination || entry.title);
+          if (!key) return;
+          if (!placeMap.has(key)) {
+            placeMap.set(key, {
+              label: entry.destination || entry.title,
+              address: entry.address || "",
+              entries: [],
+              types: new Set(),
+            });
+          }
+          const place = placeMap.get(key);
+          if (!place.address && entry.address) place.address = entry.address;
+          place.entries.push(entry);
+          place.types.add(typeLabels[entry.type] || "일정");
+        });
+
+      const places = [...placeMap.values()];
       if (!places.length) return "";
       return `
         <div class="box">
           <h3>📍 장소</h3>
           <div class="place-list">
-            ${places.map((entry) => `
+            ${places.map((place) => `
               <div class="place">
-                <strong>${escapeHtml(entry.destination || entry.title)}</strong>
-                <span>${escapeHtml(typeLabels[entry.type] || "일정")} · ${escapeHtml(statusLabels[entry.status] || "예정")}</span>
-                ${entry.address ? `<a class="map-btn" href="${mapUrl(entry.address)}" target="_blank" rel="noreferrer">지도 열기</a>` : ""}
+                <strong>${escapeHtml(place.label)}</strong>
+                <span>${escapeHtml([...place.types].join(" · "))}${place.entries.length > 1 ? ` · 관련 일정 ${place.entries.length}개` : ""}</span>
+                ${place.address ? `<a class="map-btn" href="${mapUrl(place.address)}" target="_blank" rel="noreferrer">지도 열기</a>` : ""}
               </div>
             `).join("")}
           </div>
@@ -902,14 +1032,27 @@
     }
 
     function entryToRow(entry) {
-      const money = Number(entry.spent || 0)
-        ? ` <span class="tag">${formatMoney(entry.spent)}</span>`
-        : "";
-      const map = entry.address ? ` <a class="map-btn" href="${mapUrl(entry.address)}" target="_blank" rel="noreferrer">지도</a>` : "";
+      const destination = entry.destination ? `<span class="entry-destination">${escapeHtml(entry.destination)}</span>` : "";
+      const details = renderEntryDetails(entry);
+      const note = entry.note ? `<div class="entry-note">${escapeHtml(entry.note)}</div>` : "";
       return [
         entry.time || typeLabels[entry.type] || "일정",
-        `<strong>${escapeHtml(entry.title)}</strong><br>${escapeHtml(entry.destination || "")}${money}${map}`,
+        `<strong>${escapeHtml(entry.title)}</strong>${destination}${details}${note}`,
       ];
+    }
+
+    function renderEntryDetails(entry) {
+      if (!entry.details?.length) return "";
+      return `
+        <div class="entry-details">
+          ${entry.details.map((detail) => `
+            <span class="detail-chip ${escapeHtml(detail.type)}">
+              <b>${escapeHtml(detail.label)}</b>
+              ${detail.values.length ? `<span>${escapeHtml(detail.values.join(" · "))}</span>` : ""}
+            </span>
+          `).join("")}
+        </div>
+      `;
     }
 
     function getSectionKey(item) {
@@ -944,6 +1087,28 @@
         flight: "Flight",
         check: "Check",
       }[key] || key;
+    }
+
+    function normalizeText(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replace(/[\s.,·\-_/()>'"’‘“”:;]+/g, "");
+    }
+
+    function normalizePlaceKey(value) {
+      return normalizeText(value)
+        .replace(/spain|스페인|turkiye|turkey|튀르키예|대한민국|southkorea/g, "");
+    }
+
+    function createStableKey(value) {
+      return normalizeText(value).slice(0, 36) || "item";
+    }
+
+    function stayNights(stay) {
+      const checkIn = parseDate(stay.checkIn);
+      const checkOut = parseDate(stay.checkOut);
+      if (Number.isNaN(checkIn.getTime()) || Number.isNaN(checkOut.getTime()) || checkOut <= checkIn) return 0;
+      return Math.round((checkOut - checkIn) / 86400000);
     }
 
     function sortByDateTime(a, b) {
