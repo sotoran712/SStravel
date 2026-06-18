@@ -6,6 +6,11 @@ const REPOSITORY_CONFIG = {
   branch: "main",
   dataPath: "trip-data.json",
 };
+const EXCHANGE_API_BASE = "https://api.frankfurter.dev/v2";
+const exchangeCurrencies = [
+  { code: "EUR", label: "유로" },
+  { code: "TRY", label: "리라" },
+];
 
 const typeLabels = {
   flight: "항공권",
@@ -191,6 +196,11 @@ const state = {
   isDirty: false,
   statusTimer: null,
   toastTimer: null,
+  exchangeRates: {
+    status: "idle",
+    date: "",
+    rates: {},
+  },
 };
 
 const formToggleConfigs = [
@@ -224,6 +234,7 @@ async function init() {
   updateTokenStatus();
   render();
   updateSaveControls(state.isDirty ? "수정사항 있음" : "저장소 연결됨");
+  loadExchangeRates();
 }
 
 function bindElements() {
@@ -242,6 +253,10 @@ function bindElements() {
     "startDateInput",
     "endDateInput",
     "budgetInput",
+    "eurRate",
+    "tryRate",
+    "exchangeStatus",
+    "refreshExchangeRatesButton",
     "budgetHealth",
     "budgetBar",
     "spentAmount",
@@ -350,6 +365,7 @@ function bindEvents() {
   els.loadRemoteButton.addEventListener("click", loadRemoteJson);
   els.openPagesButton.addEventListener("click", openGitHubPages);
   els.importJsonInput.addEventListener("change", importJsonFile);
+  els.refreshExchangeRatesButton.addEventListener("click", () => loadExchangeRates());
 }
 
 function syncCollapsiblePanels() {
@@ -586,6 +602,57 @@ function renderSummary() {
   els.summaryDates.textContent = `${formatDateShort(trip.startDate)} - ${formatDateShort(trip.endDate)}`;
   els.summaryBudget.textContent = formatMoney(trip.budget);
   els.summaryRemaining.textContent = formatMoney(trip.budget - totals.spent);
+}
+
+async function loadExchangeRates() {
+  state.exchangeRates = { ...state.exchangeRates, status: "loading" };
+  renderExchangeRates();
+
+  try {
+    const rates = await Promise.all(exchangeCurrencies.map(({ code }) => fetchExchangeRate(code)));
+    state.exchangeRates = {
+      status: "ready",
+      date: rates.find((rate) => rate.date)?.date || "",
+      rates: Object.fromEntries(rates.map(({ code, rate }) => [code, rate])),
+    };
+  } catch {
+    state.exchangeRates = { status: "error", date: "", rates: {} };
+  }
+
+  renderExchangeRates();
+}
+
+async function fetchExchangeRate(code) {
+  const response = await fetch(`${EXCHANGE_API_BASE}/rate/${code}/KRW`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`${code} exchange rate request failed`);
+
+  const data = await response.json();
+  const rate = Number(data.rate ?? data.rates?.KRW);
+  if (!Number.isFinite(rate)) throw new Error(`${code} exchange rate is invalid`);
+
+  return { code, rate, date: data.date || "" };
+}
+
+function renderExchangeRates() {
+  const { status, date, rates } = state.exchangeRates;
+  const isLoading = status === "loading";
+
+  els.refreshExchangeRatesButton.disabled = isLoading;
+  els.refreshExchangeRatesButton.classList.toggle("is-loading", isLoading);
+  els.eurRate.textContent = isLoading ? "불러오는 중" : formatExchangeRate(rates.EUR);
+  els.tryRate.textContent = isLoading ? "불러오는 중" : formatExchangeRate(rates.TRY);
+
+  if (status === "ready") {
+    els.exchangeStatus.textContent = `${formatExchangeDate(date)} 기준 · Frankfurter API`;
+    return;
+  }
+
+  if (status === "error") {
+    els.exchangeStatus.textContent = "환율을 불러오지 못했습니다. 새로고침 버튼을 눌러 다시 시도해 주세요.";
+    return;
+  }
+
+  els.exchangeStatus.textContent = "환율을 불러오는 중입니다.";
 }
 
 function renderBudget() {
@@ -1480,6 +1547,27 @@ function formatMoney(value) {
     currency: state.data.trip.currency || "KRW",
     maximumFractionDigits: 0,
   }).format(numberValue(value));
+}
+
+function formatExchangeRate(value) {
+  const rate = Number(value);
+  if (!Number.isFinite(rate) || rate <= 0) return "-";
+  return new Intl.NumberFormat("ko-KR", {
+    style: "currency",
+    currency: "KRW",
+    maximumFractionDigits: 2,
+  }).format(rate);
+}
+
+function formatExchangeDate(value) {
+  if (!value) return "최근 고시일";
+  const date = parseDateInputValue(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
 }
 
 function formatDateShort(value) {

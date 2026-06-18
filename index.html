@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260619-map-icon" />
+    <link rel="stylesheet" href="./styles.css?v=20260619-exchange-rates" />
   </head>
   <body>
     <div class="app-shell">
@@ -119,6 +119,31 @@
                 저장
               </button>
             </form>
+
+            <div class="exchange-strip" aria-label="오늘 환율">
+              <div class="exchange-heading">
+                <div>
+                  <p class="section-kicker">Exchange</p>
+                  <h3>오늘 환율</h3>
+                </div>
+                <button class="icon-button exchange-refresh" id="refreshExchangeRatesButton" type="button" aria-label="환율 새로고침" title="환율 새로고침">
+                  <i data-lucide="refresh-cw"></i>
+                </button>
+              </div>
+              <div class="exchange-grid">
+                <div class="exchange-item">
+                  <span>유로</span>
+                  <strong id="eurRate">-</strong>
+                  <small>1 EUR</small>
+                </div>
+                <div class="exchange-item">
+                  <span>리라</span>
+                  <strong id="tryRate">-</strong>
+                  <small>1 TRY</small>
+                </div>
+              </div>
+              <p class="exchange-status" id="exchangeStatus">환율을 불러오는 중입니다.</p>
+            </div>
           </section>
 
           <section class="panel budget-panel">
@@ -492,7 +517,7 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="./app.js?v=20260619-map-icon"></script>
+    <script src="./app.js?v=20260619-exchange-rates"></script>
     <script
       src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
       defer
