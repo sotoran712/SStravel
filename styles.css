@@ -333,6 +333,23 @@ label span {
   flex-wrap: wrap;
 }
 
+.section-body {
+  display: grid;
+  gap: 16px;
+}
+
+.section-body[hidden] {
+  display: none !important;
+}
+
+.planner-section-body {
+  gap: 16px;
+}
+
+.planner-filters {
+  justify-content: flex-end;
+}
+
 .panel-heading h2,
 .board-toolbar h2 {
   margin: 4px 0 0;
@@ -475,6 +492,7 @@ select:focus {
 .secondary-button,
 .ghost-button,
 .form-toggle-button,
+.section-collapse-button,
 .icon-button,
 .map-link,
 .import-control {
@@ -494,6 +512,7 @@ select:focus {
 .secondary-button:hover,
 .ghost-button:hover,
 .form-toggle-button:hover,
+.section-collapse-button:hover,
 .icon-button:hover,
 .map-link:hover,
 .import-control:hover {
@@ -542,6 +561,23 @@ select:focus {
   border-color: var(--teal-deep);
 }
 
+.section-collapse-button {
+  width: 36px;
+  min-height: 36px;
+  flex: 0 0 36px;
+  color: var(--teal-deep);
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.14);
+}
+
+.section-collapse-button svg {
+  transition: transform 160ms ease;
+}
+
+.section-collapse-button.is-collapsed svg {
+  transform: rotate(-90deg);
+}
+
 .icon-button {
   width: 40px;
   flex: 0 0 40px;
@@ -570,6 +606,7 @@ select:focus {
 .secondary-button svg,
 .ghost-button svg,
 .form-toggle-button svg,
+.section-collapse-button svg,
 .icon-button svg,
 .map-link svg,
 .search-box svg,
@@ -1189,6 +1226,11 @@ select:focus {
   .toolbar-actions {
     display: grid;
     align-items: stretch;
+  }
+
+  .board-toolbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
   }
 
   .search-box,

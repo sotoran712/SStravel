@@ -337,6 +337,10 @@ function bindEvents() {
     button.addEventListener("click", () => handleFormToggle(config.contentId));
   });
 
+  document.querySelectorAll("[data-section-toggle]").forEach((button) => {
+    button.addEventListener("click", handleSectionToggle);
+  });
+
   els.tripForm.addEventListener("submit", handleTripSubmit);
   els.itineraryForm.addEventListener("submit", handleItinerarySubmit);
   els.stayForm.addEventListener("submit", handleStaySubmit);
@@ -400,6 +404,22 @@ function handleFormToggle(contentId) {
   }
 
   toggleCollapsiblePanel(contentId, { focus: willOpen });
+}
+
+function handleSectionToggle(event) {
+  const button = event.currentTarget;
+  const target = document.getElementById(button.dataset.sectionToggle);
+  if (!target) return;
+
+  const shouldExpand = button.getAttribute("aria-expanded") !== "true";
+  target.hidden = !shouldExpand;
+  button.setAttribute("aria-expanded", String(shouldExpand));
+  button.classList.toggle("is-collapsed", !shouldExpand);
+
+  const label = button.getAttribute("aria-label") || "";
+  if (label.endsWith("접기") || label.endsWith("펼치기")) {
+    button.setAttribute("aria-label", label.replace(shouldExpand ? "펼치기" : "접기", shouldExpand ? "접기" : "펼치기"));
+  }
 }
 
 function openCollapsiblePanel(contentId, options = {}) {
