@@ -19,7 +19,7 @@
       "date": "2027-04-25",
       "time": "07:00",
       "type": "etc",
-      "title": "고센뷰티 도착!",
+      "title": "고센뷰티 도착",
       "destination": "고센뷰티",
       "address": "고센뷰티",
       "budget": 0,
@@ -114,8 +114,8 @@
       "destination": "이스탄불 공항",
       "address": "Istanbul Airport, Istanbul, Turkiye",
       "budget": 0,
-      "spent": 0,
-      "status": "reserved",
+      "spent": 2234800,
+      "status": "paid",
       "note": "저녁 11:20. ICN 인천국제공항 T1 → IST 이스탄불 공항."
     },
     {
@@ -128,7 +128,7 @@
       "address": "Rda. de Valencia, 1, Arganzuela, 28012 Madrid, Spain",
       "budget": 600000,
       "spent": 544054,
-      "status": "reserved",
+      "status": "paid",
       "note": "오후 2시 체크인 또는 짐 맡기기. 2박 숙소, 1박 평균 272,027원."
     },
     {
@@ -142,7 +142,7 @@
       "budget": 0,
       "spent": 0,
       "status": "planned",
-      "note": "마드리드 궁전, 마요르 광장, 산미구엘 시장, 푸에르타 델 솔 광장 후보. 도착일이라 무리하지 않는 산책 중심."
+      "note": "마드리드 궁전, 마요르 광장(부엔 레티로 공원,벨라스케스 유리궁전(야경)),산미구엘 시장, 푸에르타 델 솔 광장 후보. 도착일이라 무리하지 않는 산책 중심."
     },
     {
       "id": "itn-madrid-0426-sangines",
@@ -229,10 +229,10 @@
       "type": "stay",
       "title": "바르셀로나 숙소 체크인",
       "destination": "요즘사람들",
-      "address": "95MC+3G7 Barcelona, Spain",
+      "address": "Carrer del Carme, 18, Ciutat Vella, 08001 Barcelona, 스페인",
       "budget": 1100000,
       "spent": 1037984,
-      "status": "reserved",
+      "status": "paid",
       "note": "4박 숙소. 1박 평균 259,496원. 까딸루냐 광장, 에스파냐 광장, 호텔 레기나 후보 위치 메모 및 바르셀로나 도시세 별도 납부 필요."
     },
     {
@@ -259,7 +259,7 @@
       "budget": 0,
       "spent": 0,
       "status": "planned",
-      "note": "마이리얼트립 한민철 가이드 메모. 오전 가우디 투어, 구엘공원 동반 입장, 야경투어 할인 확인."
+      "note": "마이리얼트립 한민철 가이드 메모. 오전 가우디 투어, 구엘공원 동반 입장, 야경투어 할인 확인.\n Liceu역 : 도보 5~8분 정도\n-> 사그라다 파밀리아나 구엘공원 이동"
     },
     {
       "id": "itn-barcelona-0429-gothic",
@@ -369,14 +369,14 @@
       "id": "itn-istanbul-0502-stopover",
       "date": "2027-05-02",
       "time": "12:00",
-      "type": "transport",
+      "type": "flight",
       "title": "이스탄불 스탑오버 시작",
       "destination": "Istanbul Airport",
       "address": "Istanbul Airport, Istanbul, Turkiye",
       "budget": 0,
-      "spent": 0,
-      "status": "planned",
-      "note": "터키항공 이스탄불 스탑오버 서비스 이용. 세부 항공편, 숙소, 이동 시간은 추후 확정 필요."
+      "spent": 2463600,
+      "status": "paid",
+      "note": "출발 12:10 BCN~도착 16:40 IST\n[터키항공] 바르셀로나 - 이스탄불\n터키항공 TK1854 / 2명\n예약번호 DF8L4P\n항공사 예약번호 VNZVRX"
     },
     {
       "id": "itn-istanbul-0502-stay",
@@ -387,9 +387,9 @@
       "destination": "카라코이 이스탄불",
       "address": "Mueyyedzade, Kemeraltı Cd. No: 10, Beyoglu, Istanbul",
       "budget": 260000,
-      "spent": 289322,
-      "status": "reserved",
-      "note": "스탑오버 구간 숙소. 공항 이동 시간과 체크인 가능 시간 추후 확인."
+      "spent": 496376,
+      "status": "paid",
+      "note": "체크인 16:00 이후,체크아웃12:00이전"
     },
     {
       "id": "itn-istanbul-0503-taksim",
@@ -453,8 +453,8 @@
       "address": "Incheon International Airport, Incheon, South Korea",
       "budget": 0,
       "spent": 0,
-      "status": "planned",
-      "note": "신혼여행 종료. 상세 항공편 시간은 추후 입력."
+      "status": "paid",
+      "note": "[터키항공] 이스탄불 - 인천\n터키항공 TK020 / 2명\n예약번호 DF8L4P\n항공사 예약번호 VNZVRX"
     }
   ],
   "flights": [
@@ -467,26 +467,6 @@
       "bookingRef": "",
       "budget": 2300000,
       "spent": 2234800
-    },
-    {
-      "id": "flt-1781791518052-3cf1c3964a2ce",
-      "airline": "터키항공",
-      "flightNumber": "TK1854",
-      "route": "BCN>IST",
-      "departureDate": "2027-05-02",
-      "bookingRef": "VNZVRX",
-      "budget": 1300000,
-      "spent": 1231800
-    },
-    {
-      "id": "flt-1781791559692-6d524bbaaf21a",
-      "airline": "터키항공",
-      "flightNumber": "TK020",
-      "route": "IST>ICN",
-      "departureDate": "2027-05-04",
-      "bookingRef": "VNZVRX",
-      "budget": 1300000,
-      "spent": 1231800
     }
   ],
   "stays": [
@@ -509,13 +489,13 @@
       "spent": 1037984
     },
     {
-      "id": "stay-1781791719936-adefe93f1eb268",
+      "id": "stay-1781710147527-8c1e703b2cae98",
       "name": "카라코이 이스탄불",
       "address": "Müeyyedzade, Kemeraltı Cd. No: 10, Beyoglu, 34425",
       "checkIn": "2027-05-02",
       "checkOut": "2027-05-04",
-      "budget": 500000,
-      "spent": 496376
+      "budget": 498228,
+      "spent": 498228
     }
   ],
   "checklist": [
@@ -532,11 +512,6 @@
     {
       "id": "chk-1781716227662-9b404d031d4dc",
       "label": "보조배터리",
-      "done": false
-    },
-    {
-      "id": "chk-1781746164899-dcb8a4d16a035",
-      "label": "환전",
       "done": false
     }
   ]
