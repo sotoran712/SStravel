@@ -467,6 +467,16 @@
       "bookingRef": "",
       "budget": 2300000,
       "spent": 2234800
+    },
+    {
+      "id": "flt-1781881265220-20c53a848f4b08",
+      "airline": "터키항공",
+      "flightNumber": "TK1854",
+      "route": "BCN>IST>ICN",
+      "departureDate": "2027-05-02",
+      "bookingRef": "DF8L4P",
+      "budget": 0,
+      "spent": 2463600
     }
   ],
   "stays": [
