@@ -710,8 +710,8 @@ function renderDayTabs() {
   els.dayTabs.innerHTML = "";
   els.dayTabs.append(createDayTab("all", "전체"));
 
-  days.forEach((day, index) => {
-    const label = `D+${index + 1} ${formatDateShort(day)}`;
+  days.forEach((day) => {
+    const label = formatDateShort(day);
     els.dayTabs.append(createDayTab(day, label));
   });
 }
